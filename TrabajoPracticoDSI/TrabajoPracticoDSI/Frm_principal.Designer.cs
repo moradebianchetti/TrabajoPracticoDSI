@@ -1,6 +1,6 @@
 ﻿namespace TrabajoPracticoDSI
 {
-    partial class Form1
+    partial class Frm_principal
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,13 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.button_Aerolinea1 = new TrabajoPracticoDSI.Clase.Button_Museo();
+            this.SuspendLayout();
+            // 
+            // button_Aerolinea1
+            // 
+            this.button_Aerolinea1.Location = new System.Drawing.Point(438, 156);
+            this.button_Aerolinea1.Name = "button_Aerolinea1";
+            this.button_Aerolinea1.Pp_Presionado = false;
+            this.button_Aerolinea1.Size = new System.Drawing.Size(75, 23);
+            this.button_Aerolinea1.TabIndex = 0;
+            this.button_Aerolinea1.Text = "button_Aerolinea1";
+            this.button_Aerolinea1.UseVisualStyleBackColor = true;
+            // 
+            // Frm_principal
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button_Aerolinea1);
+            this.Name = "Frm_principal";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Clase.Button_Museo button_Aerolinea1;
     }
 }
 
