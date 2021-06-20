@@ -46,14 +46,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Backend\Conexion_DB.cs" />
+    <Compile Include="Clases\Button_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\ComboBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\DataGridView_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\Estilo.cs" />
+    <Compile Include="Clases\ManejoDeTiempos.cs" />
+    <Compile Include="Clases\MaskedTextBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\TextBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\Tratamientos_Especiales.cs" />
+    <Compile Include="Frm_principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Frm_principal.Designer.cs">
+      <DependentUpon>Frm_principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Frm_principal.resx">
+      <DependentUpon>Frm_principal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Formularios\" />
+    <Folder Include="Objetos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
