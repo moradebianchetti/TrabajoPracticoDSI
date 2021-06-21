@@ -31,6 +31,7 @@
             this.button_Aerolinea1 = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button_Museo1 = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.SuspendLayout();
             // 
             // button_Aerolinea1
@@ -62,11 +63,22 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Museo";
             // 
+            // button_Museo1
+            // 
+            this.button_Museo1.Location = new System.Drawing.Point(566, 45);
+            this.button_Museo1.Name = "button_Museo1";
+            this.button_Museo1.Pp_Presionado = false;
+            this.button_Museo1.Size = new System.Drawing.Size(75, 23);
+            this.button_Museo1.TabIndex = 3;
+            this.button_Museo1.Text = "button_Museo1";
+            this.button_Museo1.UseVisualStyleBackColor = true;
+            // 
             // Frm_principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button_Museo1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Aerolinea1);
@@ -82,6 +94,7 @@
         private Clase.Button_Museo button_Aerolinea1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private Clase.Button_Museo button_Museo1;
     }
 }
 
