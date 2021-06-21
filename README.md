@@ -41,7 +41,7 @@ Y debería figurarnos el nombre por el que hay que reemplazarlo a la izquierda d
 
 Entonces traemos los cambios del repositorio original
 ```bash
- git pull <unNombre> main 
+ git pull <unNombre> <nombreRama> 
 ```
 ### Aclaraciones Importantes
 Es posible que Git nos pida que guardemos los cambios en un commit antes de hacer pull.
