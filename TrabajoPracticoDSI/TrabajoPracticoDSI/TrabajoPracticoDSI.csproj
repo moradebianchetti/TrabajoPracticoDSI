@@ -65,14 +65,36 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Clases\Tratamientos_Especiales.cs" />
+    <Compile Include="Formularios\Frm_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Frm_Login.Designer.cs">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Frm_pantallaRegistrarVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Frm_pantallaRegistrarVenta.Designer.cs">
+      <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_principal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_principal.Designer.cs">
       <DependentUpon>Frm_principal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objetos\Empleado.cs" />
+    <Compile Include="Objetos\GestorRegistrarVentaEntrada.cs" />
+    <Compile Include="Objetos\Sesion.cs" />
+    <Compile Include="Objetos\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\Frm_Login.resx">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Frm_pantallaRegistrarVenta.resx">
+      <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_principal.resx">
       <DependentUpon>Frm_principal.cs</DependentUpon>
     </EmbeddedResource>
@@ -98,9 +120,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Formularios\" />
-    <Folder Include="Objetos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
