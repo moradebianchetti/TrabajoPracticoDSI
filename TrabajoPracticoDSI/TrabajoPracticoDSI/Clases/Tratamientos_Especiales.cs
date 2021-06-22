@@ -327,13 +327,7 @@ namespace TrabajoPracticoDSI.Clase
                         condiciones += $" AND {columna} = {valorColumna}";
                 }
             }
-            //if(cambios != "" && condiciones != "")
             return $"{sql}{cambios}{condiciones}";
-            //else
-            //{
-            //    MessageBox.Show("Las condiciones y los cambios no fueron especificados");
-            //    return "";
-            //}
         }
 
         public DataTable BuscarEstructuraTabla(string NombreTabla)

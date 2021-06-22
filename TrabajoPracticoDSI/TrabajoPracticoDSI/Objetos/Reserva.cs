@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace TrabajoPracticoDSI.Objetos
 {
-    public class Usuario
+    class Reserva
     {
-        public string contraseña { get; set; }
-        public string nombre { get; set; }
-        public int dni_empleado { get; set; }
+        public int cantidadAlumnosConfirmados { get; set; }
     }
-
-
 }

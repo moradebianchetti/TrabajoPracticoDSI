@@ -83,9 +83,17 @@
     <Compile Include="Frm_principal.Designer.cs">
       <DependentUpon>Frm_principal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objetos\DetalleExposicion.cs" />
     <Compile Include="Objetos\Empleado.cs" />
+    <Compile Include="Objetos\Exposicion.cs" />
     <Compile Include="Objetos\GestorRegistrarVentaEntrada.cs" />
+    <Compile Include="Objetos\Obra.cs" />
+    <Compile Include="Objetos\Reserva.cs" />
+    <Compile Include="Objetos\Sede.cs" />
     <Compile Include="Objetos\Sesion.cs" />
+    <Compile Include="Objetos\Tarifa.cs" />
+    <Compile Include="Objetos\TipoEntrada.cs" />
+    <Compile Include="Objetos\TipoVisita.cs" />
     <Compile Include="Objetos\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
