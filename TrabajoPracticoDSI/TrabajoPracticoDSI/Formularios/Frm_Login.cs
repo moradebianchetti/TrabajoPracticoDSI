@@ -17,6 +17,7 @@ namespace TrabajoPracticoDSI.Formularios
         public enum Respuesta { validacion_correcta, validacion_incorrecta };
         Conexion_DB _BD = new Conexion_DB();
         Sesion sesion = new Sesion();
+        Usuario usuario = new Usuario();
 
         public string Usuario { get; set; }
         public string Password
@@ -29,10 +30,10 @@ namespace TrabajoPracticoDSI.Formularios
         {
             InitializeComponent();
         }
+
         public void habilitarPantalla()
         {
             this.ShowDialog();
-
         }
 
         private void Frm_Login_Load(object sender, EventArgs e)
@@ -61,8 +62,7 @@ namespace TrabajoPracticoDSI.Formularios
 
             if (Validar_usuario(txt_usuario.Text, txt_password.Text) == Respuesta.validacion_correcta)
             {
-                this.Usuario = txt_usuario.Text;
-                this.Close();
+                this.Hide();
             }
             else
             {
@@ -79,6 +79,7 @@ namespace TrabajoPracticoDSI.Formularios
             //    SELECT * FROM usuarios WHERE n_usuario = 'Luis' AND password = '123'
             string sql = "";
             sql = "SELECT * FROM usuario WHERE nombre = '" + usr + "' AND contraseña= '" + pssw + "'";
+
             DataTable tabla = new DataTable();
             tabla = _BD.EjecutarSelect(sql);
 
@@ -90,18 +91,20 @@ namespace TrabajoPracticoDSI.Formularios
             else
             {
                 string sql1 = @"INSERT INTO SESION (usuario, fechaInicio, horaInicio) values ('" + tabla.Rows[0]["nombre"].ToString()+
-                    @"',convert(date, '" + DateTime.Now.ToString("dd-MM-yyyy") + "',103), convert(date, '" + DateTime.Now.ToString("hh:mm:ss tt") + "', 103)";
-                _BD.Insertar(sql1, false);
+                    @"',convert(date, '" + DateTime.Now.ToString("dd-MM-yyyy") + "',103), convert(time, '" + DateTime.Now.ToString("hh:mm:ss tt") + "', 108))";
+                _BD.Insertar(sql1, true);
 
                 //se encontro el usuario y se lo validó
+
+                usuario.nombre = tabla.Rows[0]["nombre"].ToString();
+                usuario.dni_empleado = int.Parse(tabla.Rows[0]["DNIEmpleado"].ToString());
+                usuario.contraseña = tabla.Rows[0]["contraseña"].ToString();
+
                 sesion.horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
                 sesion.fechaInicio = DateTime.Now.ToString("dd-MM-yyyy");
+                sesion.usuario = usuario;
 
-                sesion.usuario.nombre = tabla.Rows[0]["nombre"].ToString();
-                sesion.usuario.dni_empleado = int.Parse(tabla.Rows[0]["DNIEmpleado"].ToString());
-                sesion.usuario.contraseña = tabla.Rows[0]["contraseña"].ToString();
                 return Respuesta.validacion_correcta;
-               
             }
         }
         

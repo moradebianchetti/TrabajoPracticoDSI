@@ -13,5 +13,10 @@ namespace TrabajoPracticoDSI.Objetos
         public string horaFin { get; set; }
         public string horaInicio { get; set; }
         public Usuario usuario { get; set; }
+
+        public int BuscarUsuario()
+        {
+            return usuario.dni_empleado;
+        }
     }
 }

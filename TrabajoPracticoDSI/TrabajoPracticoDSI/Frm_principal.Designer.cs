@@ -28,22 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button_Aerolinea1 = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button_Museo1 = new TrabajoPracticoDSI.Clase.Button_Museo();
+            this.Btn_Este = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.SuspendLayout();
-            // 
-            // button_Aerolinea1
-            // 
-            this.button_Aerolinea1.Location = new System.Drawing.Point(698, 180);
-            this.button_Aerolinea1.Name = "button_Aerolinea1";
-            this.button_Aerolinea1.Pp_Presionado = false;
-            this.button_Aerolinea1.Size = new System.Drawing.Size(75, 23);
-            this.button_Aerolinea1.TabIndex = 0;
-            this.button_Aerolinea1.Text = "button_Aerolinea1";
-            this.button_Aerolinea1.UseVisualStyleBackColor = true;
-            this.button_Aerolinea1.Click += new System.EventHandler(this.button_Aerolinea1_Click);
             // 
             // label1
             // 
@@ -73,6 +62,17 @@
             this.button_Museo1.Text = "button_Museo1";
             this.button_Museo1.UseVisualStyleBackColor = true;
             // 
+            // Btn_Este
+            // 
+            this.Btn_Este.Location = new System.Drawing.Point(698, 180);
+            this.Btn_Este.Name = "Btn_Este";
+            this.Btn_Este.Pp_Presionado = false;
+            this.Btn_Este.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Este.TabIndex = 0;
+            this.Btn_Este.Text = "ESTE";
+            this.Btn_Este.UseVisualStyleBackColor = true;
+            this.Btn_Este.Click += new System.EventHandler(this.button_Aerolinea1_Click);
+            // 
             // Frm_principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,9 +81,11 @@
             this.Controls.Add(this.button_Museo1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button_Aerolinea1);
+            this.Controls.Add(this.Btn_Este);
             this.Name = "Frm_principal";
-            this.Text = "Form1";
+            this.Text = "Museo";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Frm_principal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,7 +93,7 @@
 
         #endregion
 
-        private Clase.Button_Museo button_Aerolinea1;
+        private Clase.Button_Museo Btn_Este;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private Clase.Button_Museo button_Museo1;
