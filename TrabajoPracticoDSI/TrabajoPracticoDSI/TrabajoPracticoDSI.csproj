@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Objetos\DetalleExposicion.cs" />
     <Compile Include="Objetos\Empleado.cs" />
+    <Compile Include="Objetos\Entrada.cs" />
     <Compile Include="Objetos\Exposicion.cs" />
     <Compile Include="Objetos\GestorRegistrarVentaEntrada.cs" />
     <Compile Include="Objetos\Obra.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,6 +130,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Museo Superior de Bellas Artes Evita %28ex Palacio Ferreyra%29 Córdoba - Argentina_.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Museo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
