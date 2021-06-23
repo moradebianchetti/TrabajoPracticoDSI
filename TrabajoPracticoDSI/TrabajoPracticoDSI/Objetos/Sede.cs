@@ -20,7 +20,10 @@ namespace TrabajoPracticoDSI.Objetos
 
         DataTable tarifas = new DataTable();
         DataTable exposiciones = new DataTable();
-        DataTable reservas = new DataTable();
+        DataTable datosReservas = new DataTable();
+        DataTable datosEntradas = new DataTable();
+        Reserva reserva = new Reserva();
+        Entrada entrada = new Entrada();
 
         public void getSede(int id)
         {
@@ -87,17 +90,37 @@ namespace TrabajoPracticoDSI.Objetos
 
         }
 
-        internal int obtenerCantidadReservasYEntradas()
+        internal int obtenerCantidadReservasYEntradas(int duracionExposicion)
         {
-            string sql1 = $"SELECT * FROM Reservas WHERE idSede = {this.id}";
-            reservas = _DB.EjecutarSelect(sql1);
-
-            for (int i = 0; i < reservas.Rows.Count; i++)
-            {
-                
-            }
-            int asd = 0;
-            return asd;
+            int CantidadReservas = buscasrReservasDelDia(duracionExposicion);
+            int CantidadEntradas = buscarEntradasDelDia();
+            return CantidadReservas+CantidadEntradas;
         }
+
+        private int buscasrReservasDelDia(int duracionExposicion)
+        {
+            List<Reserva> Reservas = new List<Reserva>();
+            int cantidadAlumnosConfirmada = 0;
+            string sql1 = $"SELECT * FROM Reserva WHERE idSede = {this.id}";
+            datosReservas = _DB.EjecutarSelect(sql1);
+            Reservas = reserva.esHoraFechaDelDia(datosReservas, duracionExposicion);
+            foreach (var item in Reservas)
+            {
+                cantidadAlumnosConfirmada = cantidadAlumnosConfirmada + item.cantidadAlumnosConfirmados;
+            }
+            return cantidadAlumnosConfirmada;
+        }
+
+        private int buscarEntradasDelDia()
+        {
+            List<Entrada> Entradas = new List<Entrada>();
+            string sql2 =$"SELECT * FROM Entrada WHERE idSede = {this.id}";
+            datosEntradas = _DB.EjecutarSelect(sql2);
+            Entradas = entrada.BuscarEsFechaDelDia(datosEntradas, Entradas);
+            
+            return Entradas.Count();
+        }
+
+        
     }
 }

@@ -15,6 +15,7 @@ namespace TrabajoPracticoDSI.Objetos
         Conexion_DB _DB = new Conexion_DB();
         Sede sedeActual = new Sede();
         List<Tarifa> tarifas = new List<Tarifa>();
+        
 
         int duracionExposiciones = 0;
 
@@ -77,7 +78,12 @@ namespace TrabajoPracticoDSI.Objetos
         private void validarCantidadVisitantesActuales()
         {
             int cantidadMaxVisitantes = sedeActual.cantidadMaxVisitantes;
-            int cantidadVisitantesActuales = sedeActual.obtenerCantidadReservasYEntradas();
+            int cantidadVisitantesActuales = sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
+            if (cantidadMaxVisitantes<cantidadVisitantesActuales)
+            {
+                MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo");
+                return;
+            }
         }
     }
 }

@@ -91,7 +91,7 @@ namespace TrabajoPracticoDSI.Formularios
             else
             {
                 string sql1 = @"INSERT INTO SESION (usuario, fechaInicio, horaInicio) values ('" + tabla.Rows[0]["nombre"].ToString()+
-                    @"',convert(date, '" + DateTime.Now.ToString("dd-MM-yyyy") + "',103), convert(time, '" + DateTime.Now.ToString("hh:mm:ss tt") + "', 108))";
+                    @"',convert(date, '" + DateTime.Now.ToString("dd-MM-yyyy") + "',103), convert(time, '" + DateTime.Now.ToString("hh:mm:ss") + "', 108))";
                 _BD.Insertar(sql1, true);
 
                 //se encontro el usuario y se lo validó

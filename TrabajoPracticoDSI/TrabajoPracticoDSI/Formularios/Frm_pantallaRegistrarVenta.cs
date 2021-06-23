@@ -42,8 +42,10 @@ namespace TrabajoPracticoDSI.Formularios
 
         private void mostrarTarifas(List<Tarifa> tarifas)
         {
+            grid_Tarifas.Rows.Clear();
             for (int i = 0; i < tarifas.Count; i++)
             {
+                
                 grid_Tarifas.Rows.Add();
                 grid_Tarifas.Rows[i].Cells[0].Value = tarifas[i].tipoVisita.nombre;
                 grid_Tarifas.Rows[i].Cells[1].Value = tarifas[i].tipoEntrada.nombre;
@@ -77,6 +79,7 @@ namespace TrabajoPracticoDSI.Formularios
 
         private void mostrarSeleccionCantidadEntradas()
         {
+
             
         }
 

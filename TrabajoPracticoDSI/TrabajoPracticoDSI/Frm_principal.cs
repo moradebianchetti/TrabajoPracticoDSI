@@ -48,5 +48,23 @@ namespace TrabajoPracticoDSI
             if (sesion.fechaInicio == null)
                 Application.Exit();
         }
+
+        private void btn_1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Esperando implementación");
+            return;
+        }
+
+        private void button_Museo2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Esperando implementación");
+            return;
+        }
+
+        private void button_Museo3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Esperando implementación");
+            return;
+        }
     }
 }
