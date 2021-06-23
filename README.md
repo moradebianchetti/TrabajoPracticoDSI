@@ -16,7 +16,7 @@ Luego ejecutamos los siguientes comandos en la terminal:
 Tener en cuenta:
  - Para la url de su repositorio es importante que sea el que esta en su cuenta y no el original. 
   Para saber cual es la url van a su perfil en GitHub > Repositorios > abren el ultimo > copian la dirección del navegador.
- - Verificar que aparezca "(main)" entre parentesis y en azul al lado del nombre del directorio 
+ - Verificar que aparezca "(main)" entre parentesis y en azul al lado del nombre del directorio. En caso de que no aparezca "main" realizar los comandos <git checkout main>, si    no se cambia de rama, realizar git add . y luego git commit -m "mensaje"
 
 ## Si todo sale bien ejecutamos:
 ```bash
@@ -41,7 +41,7 @@ Y debería figurarnos el nombre por el que hay que reemplazarlo a la izquierda d
 
 Entonces traemos los cambios del repositorio original
 ```bash
- git pull <unNombre> <nombreRama> 
+ git pull <unNombre> master
 ```
 ### Aclaraciones Importantes
 Es posible que Git nos pida que guardemos los cambios en un commit antes de hacer pull.
