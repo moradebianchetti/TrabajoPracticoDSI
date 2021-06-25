@@ -1,0 +1,546 @@
+------------SCRIPT-------------------
+
+
+USE [master]
+GO
+/****** Object:  Database [Museo]    Script Date: 21/06/2021 23:13:04 ******/
+CREATE DATABASE [Museo]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Museo', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\Museo.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Museo_log', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\Museo_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Museo] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Museo].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Museo] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Museo] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Museo] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Museo] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Museo] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Museo] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Museo] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Museo] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Museo] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Museo] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Museo] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Museo] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Museo] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Museo] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Museo] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Museo] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Museo] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Museo] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Museo] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Museo] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Museo] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Museo] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Museo] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Museo] SET  MULTI_USER 
+GO
+ALTER DATABASE [Museo] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Museo] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Museo] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Museo] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Museo] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Museo] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [Museo] SET QUERY_STORE = OFF
+GO
+USE [Museo]
+GO
+/****** Object:  Table [dbo].[Cambio_Estado]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cambio_Estado](
+	[fechaHoraFin] [datetime] NOT NULL,
+	[fechaHoraInicio] [datetime] NOT NULL,
+	[numeroReserva] [int] NOT NULL,
+	[idEstado] [int] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cargo]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cargo](
+	[id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Cargo] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Detalle_Exposicion]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Detalle_Exposicion](
+	[lugarAsignado] [varchar](50) NOT NULL,
+	[idObra] [int] NOT NULL,
+	[idExposicion] [int] NOT NULL,
+ CONSTRAINT [PK_Detalle_Exposicion] PRIMARY KEY CLUSTERED 
+(
+	[lugarAsignado] ASC,
+	[idObra] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Empleado]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Empleado](
+	[DNI] [int] NOT NULL,
+	[apellido] [varchar](50) NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[idCargo] [int] NOT NULL,
+	[idSede] [int] NOT NULL,
+ CONSTRAINT [PK_Empleado] PRIMARY KEY CLUSTERED 
+(
+	[DNI] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Entrada]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Entrada](
+	[fechaVenta] [date] NOT NULL,
+	[horaVenta] [time](7) NOT NULL,
+	[monto] [int] NOT NULL,
+	[numero] [int] NOT NULL,
+	[idSede] [int] NOT NULL,
+	[idTipoEntrada] [int] NOT NULL,
+	[idTipoVisita] [int] NOT NULL,
+	[fechaInicioVigencia] [date] NOT NULL,
+ CONSTRAINT [PK_Entrada] PRIMARY KEY CLUSTERED 
+(
+	[numero] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Estado]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Estado](
+	[id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[ambito] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Estado] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Exposicion]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Exposicion](
+	[fechaFin] [date] NULL,
+	[fechaInicio] [date] NOT NULL,
+	[id] [int] NOT NULL,
+	[idTipo] [int] NOT NULL,
+	[idPublicoDestino] [varchar](50) NOT NULL,
+	[idSede] [int] NOT NULL,
+ CONSTRAINT [PK_Exposicion] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Obra]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Obra](
+	[duracionExtendida] [int] NOT NULL,
+	[duracionResumida] [int] NOT NULL,
+	[id] [int] NOT NULL,
+ CONSTRAINT [PK_Obra] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Publico_Destino]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Publico_Destino](
+	[caracteristicas] [varchar](100) NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Publico_Destino] PRIMARY KEY CLUSTERED 
+(
+	[nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Reserva]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reserva](
+	[fechaCreacion] [date] NOT NULL,
+	[horaInicio] [time](7) NOT NULL,
+	[horaFin] [time](7) NULL,
+	[fechaReserva] [date] NOT NULL,
+	[cantidadAlumnosConfirmados] [int] NOT NULL,
+	[numero] [int] NOT NULL,
+	[idSede] [int] NOT NULL,
+ CONSTRAINT [PK_Reserva] PRIMARY KEY CLUSTERED 
+(
+	[numero] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sede]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sede](
+	[cantidadMaxVisitantes] [int] NOT NULL,
+	[cantidadMaxPorGuia] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[id] [int] NOT NULL,
+	[montoBase] [int] NOT NULL,
+ CONSTRAINT [PK_Sede] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sesion]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sesion](
+	[usuario] [varchar](50) NOT NULL,
+	[fechaInicio] [date] NOT NULL,
+	[fechaFin] [date] NULL,
+	[horaInicio] [time](7) NOT NULL,
+	[horaFin] [time](7) NULL,
+ CONSTRAINT [PK_Sesion] PRIMARY KEY CLUSTERED 
+(
+	[usuario] ASC,
+	[fechaInicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tarifa]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tarifa](
+	[fechaFinVigencia] [date] NULL,
+	[fechaInicioVigencia] [date] NOT NULL,
+	[monto] [int] NOT NULL,
+	[montoAdicionalGuia] [int] NOT NULL,
+	[idTipoEntrada] [int] NOT NULL,
+	[idTipoVisita] [int] NOT NULL,
+	[idSede] [int] NOT NULL,
+ CONSTRAINT [PK_Tarifa_1] PRIMARY KEY CLUSTERED 
+(
+	[fechaInicioVigencia] ASC,
+	[idTipoEntrada] ASC,
+	[idTipoVisita] ASC,
+	[idSede] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tipo_Entrada]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tipo_Entrada](
+	[id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[porcentaje] [int] NOT NULL,
+ CONSTRAINT [PK_Tipo_Entrada] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tipo_Exposicion]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tipo_Exposicion](
+	[id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Tipo_Exposicion] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tipo_Visita]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tipo_Visita](
+	[id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[porcentaje] [int] NOT NULL,
+ CONSTRAINT [PK_Tipo_Visita] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 21/06/2021 23:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[nombre] [varchar](50) NOT NULL,
+	[contraseña] [varchar](50) NOT NULL,
+	[DNIEmpleado] [int] NOT NULL,
+ CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Cambio_Estado]  WITH CHECK ADD  CONSTRAINT [FK_Cambio_Estado_Estado] FOREIGN KEY([idEstado])
+REFERENCES [dbo].[Estado] ([id])
+GO
+ALTER TABLE [dbo].[Cambio_Estado] CHECK CONSTRAINT [FK_Cambio_Estado_Estado]
+GO
+ALTER TABLE [dbo].[Cambio_Estado]  WITH CHECK ADD  CONSTRAINT [FK_Cambio_Estado_Reserva] FOREIGN KEY([numeroReserva])
+REFERENCES [dbo].[Reserva] ([numero])
+GO
+ALTER TABLE [dbo].[Cambio_Estado] CHECK CONSTRAINT [FK_Cambio_Estado_Reserva]
+GO
+ALTER TABLE [dbo].[Detalle_Exposicion]  WITH CHECK ADD  CONSTRAINT [FK_Detalle_Exposicion_Exposicion] FOREIGN KEY([idExposicion])
+REFERENCES [dbo].[Exposicion] ([id])
+GO
+ALTER TABLE [dbo].[Detalle_Exposicion] CHECK CONSTRAINT [FK_Detalle_Exposicion_Exposicion]
+GO
+ALTER TABLE [dbo].[Detalle_Exposicion]  WITH CHECK ADD  CONSTRAINT [FK_Detalle_Exposicion_Obra] FOREIGN KEY([idObra])
+REFERENCES [dbo].[Obra] ([id])
+GO
+ALTER TABLE [dbo].[Detalle_Exposicion] CHECK CONSTRAINT [FK_Detalle_Exposicion_Obra]
+GO
+ALTER TABLE [dbo].[Empleado]  WITH CHECK ADD  CONSTRAINT [FK_Empleado_Cargo] FOREIGN KEY([idCargo])
+REFERENCES [dbo].[Cargo] ([id])
+GO
+ALTER TABLE [dbo].[Empleado] CHECK CONSTRAINT [FK_Empleado_Cargo]
+GO
+ALTER TABLE [dbo].[Empleado]  WITH CHECK ADD  CONSTRAINT [FK_Empleado_Sede] FOREIGN KEY([idSede])
+REFERENCES [dbo].[Sede] ([id])
+GO
+ALTER TABLE [dbo].[Empleado] CHECK CONSTRAINT [FK_Empleado_Sede]
+GO
+ALTER TABLE [dbo].[Entrada]  WITH CHECK ADD  CONSTRAINT [FK_Entrada_Sede] FOREIGN KEY([idSede])
+REFERENCES [dbo].[Sede] ([id])
+GO
+ALTER TABLE [dbo].[Entrada] CHECK CONSTRAINT [FK_Entrada_Sede]
+GO
+ALTER TABLE [dbo].[Entrada]  WITH CHECK ADD  CONSTRAINT [FK_Entrada_Tarifa] FOREIGN KEY([fechaInicioVigencia], [idTipoEntrada], [idTipoVisita], [idSede])
+REFERENCES [dbo].[Tarifa] ([fechaInicioVigencia], [idTipoEntrada], [idTipoVisita], [idSede])
+GO
+ALTER TABLE [dbo].[Entrada] CHECK CONSTRAINT [FK_Entrada_Tarifa]
+GO
+ALTER TABLE [dbo].[Exposicion]  WITH CHECK ADD  CONSTRAINT [FK_Exposicion_Publico_Destino] FOREIGN KEY([idPublicoDestino])
+REFERENCES [dbo].[Publico_Destino] ([nombre])
+GO
+ALTER TABLE [dbo].[Exposicion] CHECK CONSTRAINT [FK_Exposicion_Publico_Destino]
+GO
+ALTER TABLE [dbo].[Exposicion]  WITH CHECK ADD  CONSTRAINT [FK_Exposicion_Sede] FOREIGN KEY([idSede])
+REFERENCES [dbo].[Sede] ([id])
+GO
+ALTER TABLE [dbo].[Exposicion] CHECK CONSTRAINT [FK_Exposicion_Sede]
+GO
+ALTER TABLE [dbo].[Exposicion]  WITH CHECK ADD  CONSTRAINT [FK_Exposicion_Tipo_Exposicion] FOREIGN KEY([idTipo])
+REFERENCES [dbo].[Tipo_Exposicion] ([id])
+GO
+ALTER TABLE [dbo].[Exposicion] CHECK CONSTRAINT [FK_Exposicion_Tipo_Exposicion]
+GO
+ALTER TABLE [dbo].[Reserva]  WITH CHECK ADD  CONSTRAINT [FK_Reserva_Sede] FOREIGN KEY([idSede])
+REFERENCES [dbo].[Sede] ([id])
+GO
+ALTER TABLE [dbo].[Reserva] CHECK CONSTRAINT [FK_Reserva_Sede]
+GO
+ALTER TABLE [dbo].[Sesion]  WITH CHECK ADD  CONSTRAINT [FK_Sesion_Usuario] FOREIGN KEY([usuario])
+REFERENCES [dbo].[Usuario] ([nombre])
+GO
+ALTER TABLE [dbo].[Sesion] CHECK CONSTRAINT [FK_Sesion_Usuario]
+GO
+ALTER TABLE [dbo].[Tarifa]  WITH CHECK ADD  CONSTRAINT [FK_Tarifa_Sede] FOREIGN KEY([idSede])
+REFERENCES [dbo].[Sede] ([id])
+GO
+ALTER TABLE [dbo].[Tarifa] CHECK CONSTRAINT [FK_Tarifa_Sede]
+GO
+ALTER TABLE [dbo].[Tarifa]  WITH CHECK ADD  CONSTRAINT [FK_Tarifa_Tipo_Entrada] FOREIGN KEY([idTipoEntrada])
+REFERENCES [dbo].[Tipo_Entrada] ([id])
+GO
+ALTER TABLE [dbo].[Tarifa] CHECK CONSTRAINT [FK_Tarifa_Tipo_Entrada]
+GO
+ALTER TABLE [dbo].[Tarifa]  WITH CHECK ADD  CONSTRAINT [FK_Tarifa_Tipo_Visita] FOREIGN KEY([idTipoVisita])
+REFERENCES [dbo].[Tipo_Visita] ([id])
+GO
+ALTER TABLE [dbo].[Tarifa] CHECK CONSTRAINT [FK_Tarifa_Tipo_Visita]
+GO
+ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Usuario_Empleado] FOREIGN KEY([DNIEmpleado])
+REFERENCES [dbo].[Empleado] ([DNI])
+GO
+ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Empleado]
+GO
+USE [master]
+GO
+ALTER DATABASE [Museo] SET  READ_WRITE 
+GO
+
+
+
+
+
+
+
+
+------- DATOS ---------
+
+INSERT INTO Tipo_Entrada VALUES ('General',0.05);
+INSERT INTO Tipo_Entrada VALUES ('No General',0.07);
+
+INSERT INTO Tipo_Visita VALUES ('Completa',0.05);
+INSERT INTO Tipo_Visita VALUES ('Por exposición',0.03);
+
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (100, 10, 'Sede Provincial de Bellas Artes "Emilio Caraffa"', 100);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (120, 15, 'Sede Superior de Bellas Artes "Evita" | Palacio Ferreyra', 150);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (140, 10, 'Sede PROVINCIAL DE FOTOGRAFÍA PALACIO DIONISI', 200);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (160, 15, 'Sede Histórico Provincial Marqués de Sobremonte', 300);
+
+INSERT INTO Cargo(nombre) VALUES ('Guía');
+
+INSERT INTO Empleado VALUES (38000000, 'Juan', 'Peez', 1, 1);
+INSERT INTO Empleado VALUES (40000000, 'Roberto', 'Gonzales', 1, 1);
+INSERT INTO Empleado VALUES (35000000, 'Miguel', 'Sanchez', 1, 1);
+INSERT INTO Empleado VALUES (41000000, 'Malena', 'Burgos', 1, 1);
+
+INSERT INTO Usuario VALUES ('juanperez','1111',38000000);
+INSERT INTO Usuario VALUES ('robertogon','1111',40000000);
+INSERT INTO Usuario VALUES ('jmiguelsan','1111',35000000);
+INSERT INTO Usuario VALUES ('malenaburgos','1111',41000000);
+
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,1,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 108,50,1,2);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 112,50,2,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,2,2);
+
+
+
+
+--ident
+INSERT INTO Tipo_Entrada VALUES ('General',0.05);
+INSERT INTO Tipo_Entrada VALUES ('No General',0.07);
+
+--ident
+INSERT INTO Tipo_Visita VALUES ('Completa',0.05);
+INSERT INTO Tipo_Visita VALUES ('Por exposición',0.03);
+
+--ident
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (100, 10, 'Sede Provincial de Bellas Artes "Emilio Caraffa"', 100);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (120, 15, 'Sede Superior de Bellas Artes "Evita" | Palacio Ferreyra', 150);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (140, 10, 'Sede PROVINCIAL DE FOTOGRAFÍA PALACIO DIONISI', 200);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (160, 15, 'Sede Histórico Provincial Marqués de Sobremonte', 300);
+
+--ident
+INSERT INTO Cargo(nombre) VALUES ('Guía');
+
+INSERT INTO Empleado VALUES (38000000, 'Juan', 'Peez', 1, 1);
+INSERT INTO Empleado VALUES (40000000, 'Roberto', 'Gonzales', 1, 1);
+INSERT INTO Empleado VALUES (35000000, 'Miguel', 'Sanchez', 1, 1);
+INSERT INTO Empleado VALUES (41000000, 'Malena', 'Burgos', 1, 1);
+INSERT INTO Empleado VALUES (30000000, 'Agustin', 'Viale', 1, 1);
+
+INSERT INTO Usuario VALUES ('juanperez','1111',38000000);
+INSERT INTO Usuario VALUES ('robertogon','1111',40000000);
+INSERT INTO Usuario VALUES ('jmiguelsan','1111',35000000);
+INSERT INTO Usuario VALUES ('malenaburgos','1111',41000000);
+INSERT INTO Usuario VALUES ('1','1',30000000);
+
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,1,1,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 108,50,1,2,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 112,50,2,1,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,2,2,1);
+
+--ident id obra
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(3,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(4,1)
+
+--ident id tipo || dos tipos: permanentes y temporales.
+INSERT INTO Tipo_Exposicion VALUES ('Permanente');
+INSERT INTO Tipo_Exposicion VALUES ('Temporal');
+
+--correspondiente. Estas exposiciones pueden estar orientadas a uno o más sectores del público (niños, estudiantes de arte, público general, etc.),
+INSERT INTO Publico_Destino VALUES(1, 'Niños')
+INSERT INTO Publico_Destino VALUES(1, 'Estudiantes de arte')
+INSERT INTO Publico_Destino VALUES(1, 'Público general')
