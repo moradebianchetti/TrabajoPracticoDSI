@@ -12,8 +12,16 @@ namespace TrabajoPracticoDSI.Objetos
     class GestorRegistrarVentaEntrada
     {
         //Atributos
+        public int fechaHoraAtual { get; set; }
+        public Sede sedeActual { get; set; }
+        public Sesion sesioUsuarioLoguead { get; set; }
+        public int tarifaSeleccionada { get; set; }
+        public int tarifaVigente { get; set; }
+        public bool ventaConfirmada { get; set; }
+        public int visitantesSede { get; set; }
+
         Conexion_DB _DB = new Conexion_DB();
-        Sede sedeActual = new Sede();
+        //this.sedeActual = new Sede();
         List<Tarifa> tarifas = new List<Tarifa>();
         
 
@@ -37,9 +45,9 @@ namespace TrabajoPracticoDSI.Objetos
                 Empleado empleado = new Empleado();
                 empleado.DNI = int.Parse(empleados.Rows[i]["DNI"].ToString());
                 int idSede = int.Parse(empleados.Rows[i]["idSede"].ToString());
-                sedeActual = empleado.esTuUsuario(usuarioActual, idSede);
+                this.sedeActual = empleado.esTuUsuario(usuarioActual, idSede);
 
-                if (sedeActual.id != 0)
+                if (this.sedeActual.id != 0)
                     break;
             }
 
@@ -50,7 +58,7 @@ namespace TrabajoPracticoDSI.Objetos
 
         public List<Tarifa> buscarTarifa()
         {
-            return sedeActual.obtenerTarifa();
+            return this.sedeActual.obtenerTarifa();
         }
 
         public int buscarUsuarioLogueado(Sesion sesion)
@@ -66,19 +74,30 @@ namespace TrabajoPracticoDSI.Objetos
 
         private void calcularDuracionAExposicionesVigentes()
         {
-            duracionExposiciones = sedeActual.obtenerDuracionAExposicionesVigentes();
+            duracionExposiciones = this.sedeActual.obtenerDuracionAExposicionesVigentes();
             MessageBox.Show("Duracion " + duracionExposiciones);
         }
 
         public void tomarSeleccionCantidadEntradas()
         {
-            validarCantidadVisitantesActuales();
+            int cantidadMaximaVisitantes = buscarCapacidaMaxima();
+
+            validarCantidadVisitantesActuales(buscarCapacidaMaxima, buscarCantidadVisitantesEnSede);
+        }
+        public int buscarCapacidaMaxima()
+        {
+            return this.sedeActual.cantidadMaxVisitantes; 
         }
 
-        private void validarCantidadVisitantesActuales()
+        public int buscarCantidadVisitantesEnSede()
         {
-            int cantidadMaxVisitantes = sedeActual.cantidadMaxVisitantes;
-            int cantidadVisitantesActuales = sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
+            return this.sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
+        }
+
+        private void validarCantidadVisitantesActuales(int buscarCapacidaMaxima, int buscarCantidadVisitantesEnSede)
+        {
+               
+            
             if (cantidadMaxVisitantes<cantidadVisitantesActuales)
             {
                 MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo");
