@@ -29,24 +29,21 @@ namespace TrabajoPracticoDSI.Objetos
                 this.duracionEstimada = int.Parse(datosReserva.Rows[i]["duracionEstimada"].ToString());
                 this.fechaHoraReserva = Convert.ToDateTime(datosReserva.Rows[i]["fechaHoraReserva"].ToString());
                 string[] fechaHora = datosReserva.Rows[i]["fechaHoraReserva"].ToString().Split(' ');
-
-                //DateTime horaInicioReserva = DateTime.ParseExact(fechaHora[1], "hh:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
                 DateTime horaInicioReserva = Convert.ToDateTime(fechaHora[1]);
                 DateTime fechaDelDia = Convert.ToDateTime(fechaHora[0]);
                 DateTime horaFinReserva = horaInicioReserva.AddMinutes(this.duracionEstimada);
-                //DateTime horaInicioEntrada = DateTime.ParseExact(DateTime.Now, "hh:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
-
                 DateTime horaInicioEntrada = DateTime.Now;
                 DateTime horaFinEntrada = horaInicioEntrada.AddMinutes(duracionEstimada);
-                //DateTime horaFinEntrada = DateTime.ParseExact(fechaHora[1], "hh:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
 
+                string[] hoy = DateTime.Now.ToString().Split(' ');
+                string[] fechaDiaReserva = fechaDelDia.ToString().Split(' ');
 
-                if (((horaFinEntrada > horaInicioReserva) || (horaInicioEntrada < horaFinReserva)) && (fechaDelDia == DateTime.Now))
+                //MessageBox.Show("fecha dia" + hoy[0] + ", " + "datetimenow " + fechaDiaReserva[0]);
+              
+                if (((horaFinEntrada > horaInicioReserva) || (horaInicioEntrada < horaFinReserva)) && (hoy[0] == fechaDiaReserva[0]))
                 {
-                    MessageBox.Show("entro");
                     Reservas.Add(this);
                 }
-                //MessageBox.Show("d " + horaFinEntrada.ToString()+" , " + horaInicioReserva.ToString()+" , " + horaInicioEntrada.ToString()+ " , " + horaFinReserva.ToString());
             }
             return Reservas;
            

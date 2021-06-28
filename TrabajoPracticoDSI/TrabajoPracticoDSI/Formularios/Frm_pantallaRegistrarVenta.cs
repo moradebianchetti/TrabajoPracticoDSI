@@ -60,10 +60,13 @@ namespace TrabajoPracticoDSI.Formularios
 
             this.tarifaSeleccionada.monto = int.Parse(grid_Tarifas.CurrentRow.Cells["Monto"].Value.ToString());
             int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
+          
             //this.tarifaSeleccionada.fechaInicioVigencia = DateTime.Now.ToString("dd-MM-yyyy");
             this.tarifaSeleccionada.fechaInicioVigencia = "27-06-2021";
             this.tarifaSeleccionada.fechaFinVigencia = DateTime.Now.ToString("dd-MM-yyyy"); //agregarle dias
-            this.tarifaSeleccionada.tipoVisita = listaTarifas[indiceSeleccionado].tipoVisita;
+            this.tarifaSeleccionada.tipoVisita =listaTarifas[indiceSeleccionado].tipoVisita;
+            this.tarifaSeleccionada.tipoVisita.id = listaTarifas[indiceSeleccionado].tipoVisita.id;
+            //MessageBox.Show("tipo visita " + listaTarifas[indiceSeleccionado].tipoVisita.id);
             this.tarifaSeleccionada.tipoEntrada = listaTarifas[indiceSeleccionado].tipoEntrada;
             this.tarifaSeleccionada.montoAdicionalGuia = int.Parse(grid_Tarifas.CurrentRow.Cells["MontoGuia"].Value.ToString());
 
@@ -87,7 +90,13 @@ namespace TrabajoPracticoDSI.Formularios
         }
         private void tomarSeleccionCantidadEntradas(object sender, EventArgs e)
         {
-            gestor.tomarSeleccionCantidadEntradas(int.Parse(msk_Entradas.Text));
+            if(msk_Entradas.Text != "")
+            {
+                gestor.tomarSeleccionCantidadEntradas(int.Parse(msk_Entradas.Text));
+            }else
+            {
+                MessageBox.Show("Por favor ingrese una cantidad");
+            }
 
         }
 

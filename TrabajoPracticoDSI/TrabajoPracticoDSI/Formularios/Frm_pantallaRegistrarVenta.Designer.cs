@@ -213,7 +213,7 @@
             this.grid_Tarifas.Name = "grid_Tarifas";
             this.grid_Tarifas.Pp_FormatoGrid = null;
             this.grid_Tarifas.Pp_NombreTabla = null;
-            this.grid_Tarifas.Size = new System.Drawing.Size(548, 202);
+            this.grid_Tarifas.Size = new System.Drawing.Size(601, 202);
             this.grid_Tarifas.TabIndex = 0;
             // 
             // TipoVisita
@@ -245,7 +245,6 @@
             // 
             this.Indice.HeaderText = "asdasd";
             this.Indice.Name = "Indice";
-            this.Indice.Visible = false;
             // 
             // Frm_pantallaRegistrarVenta
             // 
@@ -274,12 +273,6 @@
         #endregion
 
         private Clase.DataGridView_Museo grid_Tarifas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoVisita;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoEntrada;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MontoGuia;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Guia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Indice;
         private Clase.Button_Museo Btn_1;
         private Clase.MaskedTextBox_Museo msk_Entradas;
         private System.Windows.Forms.Label labelDeSeleccion;
@@ -293,5 +286,11 @@
         private Clase.TextBox_Museo txt_montoT;
         private Clase.Button_Museo btn_confirmar;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoVisita;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoEntrada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MontoGuia;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Guia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Indice;
     }
 }

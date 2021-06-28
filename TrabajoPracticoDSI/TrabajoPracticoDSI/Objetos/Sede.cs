@@ -61,10 +61,13 @@ namespace TrabajoPracticoDSI.Objetos
                     int idTipoEntrada = int.Parse(tarifas.Rows[i]["idTipoEntrada"].ToString());
 
                     tarifa.getTarifaVigente(idTipoVisita, idTipoEntrada);
-
+                    
                     tarifa.calcularMonto(montoBase);
+                    tarifa.tipoVisita.id = idTipoVisita;
+                    tarifa.tipoEntrada.id = idTipoEntrada;
 
                     tarifasSede.Add(tarifa);
+                    //MessageBox.Show(" "+ tarifa.tipoVisita.id);
                 }
             }
 
