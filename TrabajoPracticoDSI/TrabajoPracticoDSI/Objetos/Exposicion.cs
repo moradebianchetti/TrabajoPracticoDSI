@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrabajoPracticoDSI.Backend;
+using System.Windows.Forms;
 
 namespace TrabajoPracticoDSI.Objetos
 {
@@ -25,12 +26,14 @@ namespace TrabajoPracticoDSI.Objetos
         {
             if (Convert.ToDateTime(fechaFin) < DateTime.Now)
                 return false;
+            
             else
                 return true;
         }
 
         public int calcularDuracionObrasExpuestas()
         {
+          
             int duracionTotal = 0;
             string sql = $"SELECT * FROM Detalle_Exposicion WHERE idExposicion = {this.id}";
             detalles = _DB.EjecutarSelect(sql);
@@ -40,6 +43,7 @@ namespace TrabajoPracticoDSI.Objetos
                 detalle.idObra = int.Parse(detalles.Rows[0]["idObra"].ToString());
                 duracionTotal += detalle.buscarDuracionResumidaObra();
             }
+      
             return duracionTotal;
         }
     }

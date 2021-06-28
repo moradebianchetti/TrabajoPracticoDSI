@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrabajoPracticoDSI.Backend;
+using System.Windows.Forms;
 
 namespace TrabajoPracticoDSI.Objetos
 {
@@ -19,8 +20,9 @@ namespace TrabajoPracticoDSI.Objetos
 
         public int buscarDuracionResumidaObra()
         {
-            string sql = $"SELECT duracionResumida FROM Obra WHERE idObra = {this.idObra}";
+            string sql = $"SELECT duracionResumida FROM Obra WHERE id = {this.idObra}";
             obras = _DB.EjecutarSelect(sql);
+
             return int.Parse(obras.Rows[0]["duracionResumida"].ToString());
         }
     }

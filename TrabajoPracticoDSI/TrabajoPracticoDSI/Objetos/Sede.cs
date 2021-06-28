@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrabajoPracticoDSI.Backend;
+using System.Windows.Forms;
 
 namespace TrabajoPracticoDSI.Objetos
 {
@@ -22,6 +23,7 @@ namespace TrabajoPracticoDSI.Objetos
         DataTable exposiciones = new DataTable();
         DataTable datosReservas = new DataTable();
         DataTable datosEntradas = new DataTable();
+        
         Reserva reserva = new Reserva();
         Entrada entrada = new Entrada();
 
@@ -78,14 +80,16 @@ namespace TrabajoPracticoDSI.Objetos
             for (int i = 0; i < exposiciones.Rows.Count; i++)
             {
                 Exposicion exposicion = new Exposicion();
-                exposicion.fechaInicio = exposiciones.Rows[i]["fechaInicio"].ToString();
+                exposicion.fechaFin = exposiciones.Rows[i]["fechaFin"].ToString();
                 exposicion.id = int.Parse(exposiciones.Rows[i]["id"].ToString());
 
                 if (exposicion.esVigente())
                 {
                     duracionTotal += exposicion.calcularDuracionObrasExpuestas();
+
                 }
             }
+            
             return duracionTotal;
 
         }
@@ -120,7 +124,12 @@ namespace TrabajoPracticoDSI.Objetos
             
             return Entradas.Count();
         }
+        public int obtenerUltimoNroEntrada()
+        {
+            int mayorNumero = entrada.getNroEntrada(datosEntradas);
+            return mayorNumero;
+        }
 
-        
+
     }
 }
