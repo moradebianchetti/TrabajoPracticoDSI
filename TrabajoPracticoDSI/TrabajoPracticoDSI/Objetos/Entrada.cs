@@ -47,7 +47,7 @@ namespace TrabajoPracticoDSI.Objetos
 
             for (int i = 0; i < todasEntradas.Rows.Count; i++)
             {
-                nro = int.Parse(todasEntradas.Rows[0]["numero"].ToString());
+                nro = int.Parse(todasEntradas.Rows[i]["numero"].ToString());
                 if (nro > mayorNumero)
                 {
                     mayorNumero = nro;
@@ -55,7 +55,7 @@ namespace TrabajoPracticoDSI.Objetos
             }
             return mayorNumero;
         }
-        public void newEntrada(DateTime fechaHoraActual,Sede sedeActual, Tarifa tarifa, int mayorNumero)
+        public void newEntrada(DateTime fechaHoraActual, Sede sedeActual, Tarifa tarifa, int mayorNumero)
         {
             string[] hoy = fechaHoraActual.ToString().Split(' ');
             this.sede = sedeActual;
@@ -64,13 +64,11 @@ namespace TrabajoPracticoDSI.Objetos
             this.horaVenta = hoy[1];
             this.monto = tarifa.monto;
             int numero = mayorNumero + 1;
-      //no me trae el id de tipo entrada y tipo visita
             string sql = @"INSERT INTO Entrada (fechaVenta, horaVenta, monto, numero, idSede, idTipoEntrada, " +
                                 @"idTipoVisita, fechaInicioVigencia) VALUES(CONVERT(date, '" + this.fechaVenta+ "' ,103)" +
                             @", CONVERT(time, '" + horaVenta + "', 103), " + tarifa.monto.ToString() + ", " + numero.ToString() +
                             @", " + sede.id.ToString() + ","+ tarifa.tipoEntrada.id + ", " + tarifa.tipoVisita.id +
                             @", CONVERT(datetime, '" + tarifa.fechaInicioVigencia + "',103) )";
-            MessageBox.Show(", " + sql);
             _DB.Insertar(sql, true);
             MessageBox.Show("Se confirmo su compra con éxito");
         }

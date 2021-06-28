@@ -80,7 +80,7 @@ namespace TrabajoPracticoDSI.Objetos
         private void calcularDuracionAExposicionesVigentes()
         {
             duracionExposiciones = this.sedeActual.obtenerDuracionAExposicionesVigentes();
-            MessageBox.Show("Duracion " + duracionExposiciones);
+            //MessageBox.Show("Duracion " + duracionExposiciones);
         }
 
         public void tomarSeleccionCantidadEntradas(int cantidadIngresada)
@@ -120,22 +120,23 @@ namespace TrabajoPracticoDSI.Objetos
         }
         private void buscarUltimoNroEntrada(int cantidadEntrada, int montoTotal)
         {
-            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
-            obtenerFechaHoraActual(cantidadEntrada, montoTotal, mayorNumero);
+            
+            obtenerFechaHoraActual(cantidadEntrada, montoTotal);
         }
-        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal, int mayorNumero)
+        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal)
         {
             this.fechaHoraActual = DateTime.Now;
-            RegistrarEntrada(cantidadEntrada, montoTotal, mayorNumero);
+            RegistrarEntrada(cantidadEntrada, montoTotal);
         }
-        private void RegistrarEntrada(int cantidadEntrada, int montoTotal, int mayorNumero)
+        private void RegistrarEntrada(int cantidadEntrada, int montoTotal)
         {
             for (int i = 0; i < cantidadEntrada; i++)
             {
                
                 Entrada entrada = new Entrada();
+                int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
                 entrada.newEntrada(this.fechaHoraActual, sedeActual, tarifaSeleccionada, mayorNumero);
-                //imprimirEntradas(cantidadEntrada);
+               
             }
             imprimirEntradas(cantidadEntrada);
         }
@@ -143,18 +144,18 @@ namespace TrabajoPracticoDSI.Objetos
         {
             for (int i = 0; i < cantidadEntrada; i++)
             {
-                ImpresorEntradas.imprimirEntradas();
+                //ImpresorEntradas.imprimirEntradas();
             }
             actualizarCantidadVisitantes();
         }
         private void actualizarCantidadVisitantes()
         {
-            PantallaSala.actualizarCantidadVisitantes(visitantesSede);
+            //PantallaSala.actualizarCantidadVisitantes(visitantesSede);
             actualizarVisitantesPantalla();
         }
         private void actualizarVisitantesPantalla()
         {
-            PantallaEntrada.actualizarCantidadVisitantes(visitantesSede);
+           // PantallaEntrada.actualizarCantidadVisitantes(visitantesSede);
 
         }
     }
