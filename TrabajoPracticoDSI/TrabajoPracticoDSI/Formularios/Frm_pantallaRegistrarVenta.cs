@@ -57,21 +57,16 @@ namespace TrabajoPracticoDSI.Formularios
 
         private void tomarSeleccionTarifa(object sender, EventArgs e)
         {
-
-            this.tarifaSeleccionada.monto = int.Parse(grid_Tarifas.CurrentRow.Cells["Monto"].Value.ToString());
             int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
-          
-            //this.tarifaSeleccionada.fechaInicioVigencia = DateTime.Now.ToString("dd-MM-yyyy");
-            this.tarifaSeleccionada.fechaInicioVigencia = "27-06-2021";
-            this.tarifaSeleccionada.fechaFinVigencia = DateTime.Now.ToString("dd-MM-yyyy"); //agregarle dias
-            this.tarifaSeleccionada.tipoVisita =listaTarifas[indiceSeleccionado].tipoVisita;
-            this.tarifaSeleccionada.tipoVisita.id = listaTarifas[indiceSeleccionado].tipoVisita.id;
-            //MessageBox.Show("tipo visita " + listaTarifas[indiceSeleccionado].tipoVisita.id);
-            this.tarifaSeleccionada.tipoEntrada = listaTarifas[indiceSeleccionado].tipoEntrada;
-            this.tarifaSeleccionada.montoAdicionalGuia = int.Parse(grid_Tarifas.CurrentRow.Cells["MontoGuia"].Value.ToString());
+            this.tarifaSeleccionada = listaTarifas[indiceSeleccionado];
 
             gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
+            label6.Text = tarifaSeleccionada.tipoVisita.nombre.ToString();
+            label6.Visible = true;
+            label5.Text = tarifaSeleccionada.tipoEntrada.nombre.ToString();
+            label5.Visible = true;
+            label7.Visible = true;
             Btn_1.Visible = false;
             Btn_2.Visible = true;
             grid_Tarifas.Enabled = false;
@@ -105,22 +100,32 @@ namespace TrabajoPracticoDSI.Formularios
             groupBox1.Visible = true;
             txt_cantidad.Text = msk_Entradas.Text;
             txt_montoU.Text = this.tarifaSeleccionada.monto.ToString();
-
+     
             txt_montoT.Text = (this.tarifaSeleccionada.monto * int.Parse(msk_Entradas.Text)).ToString();
+            solicitarConfirmacionCompra();
+
         }
         public void solicitarConfirmacionCompra()
         {
-            MessageBox.Show("¿Desea confirmar la compra?"); //VER ESTO
+            btn_confirmar.Enabled = true;
         }
        
         private void tomarSeleccionConfirmarCompra(object sender, EventArgs e)
         {
-            gestor.tomarSeleccionConfirmarCompra(int.Parse(msk_Entradas.Text), int.Parse(txt_montoT.Text));
+            if (msk_Entradas.Text != "")
+            {
+                gestor.tomarSeleccionConfirmarCompra(int.Parse(msk_Entradas.Text), int.Parse(txt_montoT.Text));
+
+            }
+            else
+            {
+                MessageBox.Show("Ingrese una cantidad por favor.");
+            }
         }
-
-        private void Frm_pantallaRegistrarVenta_Load(object sender, EventArgs e)
+        
+        private void cancelarVenta(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

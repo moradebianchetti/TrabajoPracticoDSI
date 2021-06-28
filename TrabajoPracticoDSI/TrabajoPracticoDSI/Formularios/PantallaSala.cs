@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoPracticoDSI.Objetos;
 
 namespace TrabajoPracticoDSI.Formularios
 {
@@ -19,10 +20,12 @@ namespace TrabajoPracticoDSI.Formularios
         {
             InitializeComponent();
         }
-        public void actualizarCantidadVisitantes(int visitantesActuales)
+        public void actualizarCantidadVisitantes(int visitantesActuales, Sede sedeActual)
         {
+            this.capacidadMaximaSede = sedeActual.cantidadMaxVisitantes;
             this.nroVisitantesActuales = visitantesActuales;
+            txt_visitantes.Text = visitantesActuales.ToString();
+            this.ShowDialog();
         }
-
     }
 }

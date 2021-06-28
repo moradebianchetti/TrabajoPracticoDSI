@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TrabajoPracticoDSI.Objetos
 {
-    class Entrada
+    public partial class Entrada
     {
         public string fechaVenta { get; set; }
         public string horaVenta { get; set; }
@@ -63,14 +63,16 @@ namespace TrabajoPracticoDSI.Objetos
             this.fechaVenta = hoy[0];
             this.horaVenta = hoy[1];
             this.monto = tarifa.monto;
-            int numero = mayorNumero + 1;
+            this.numero = mayorNumero;
+
             string sql = @"INSERT INTO Entrada (fechaVenta, horaVenta, monto, numero, idSede, idTipoEntrada, " +
                                 @"idTipoVisita, fechaInicioVigencia) VALUES(CONVERT(date, '" + this.fechaVenta+ "' ,103)" +
-                            @", CONVERT(time, '" + horaVenta + "', 103), " + tarifa.monto.ToString() + ", " + numero.ToString() +
+                            @", CONVERT(time, '" + horaVenta + "', 103), " + tarifa.monto.ToString() + ", " + mayorNumero.ToString() +
                             @", " + sede.id.ToString() + ","+ tarifa.tipoEntrada.id + ", " + tarifa.tipoVisita.id +
                             @", CONVERT(datetime, '" + tarifa.fechaInicioVigencia + "',103) )";
+            
             _DB.Insertar(sql, true);
-            MessageBox.Show("Se confirmo su compra con éxito");
+          
         }
 
     }

@@ -125,6 +125,12 @@
     <EmbeddedResource Include="Formularios\ImpresorEntradas.resx">
       <DependentUpon>ImpresorEntradas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\PantallaEntrada.resx">
+      <DependentUpon>PantallaEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\PantallaSala.resx">
+      <DependentUpon>PantallaSala.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_principal.resx">
       <DependentUpon>Frm_principal.cs</DependentUpon>
     </EmbeddedResource>

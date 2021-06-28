@@ -28,12 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PantallaSala));
+            this.txt_visitantes = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // txt_visitantes
+            // 
+            this.txt_visitantes.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txt_visitantes.BackColor = System.Drawing.Color.Transparent;
+            this.txt_visitantes.Font = new System.Drawing.Font("Microsoft Sans Serif", 50.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_visitantes.Location = new System.Drawing.Point(219, 152);
+            this.txt_visitantes.Name = "txt_visitantes";
+            this.txt_visitantes.Size = new System.Drawing.Size(281, 76);
+            this.txt_visitantes.TabIndex = 7;
+            this.txt_visitantes.Text = "txt_visitantes";
+            this.txt_visitantes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(262, 323);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(179, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "¡Nos cuidamos entre todos!";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(209, 286);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(291, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Recuerde mantener el distanciamiento social";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(185, 79);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(359, 39);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Visitantes en el museo";
+            // 
+            // PantallaSala
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "PantallaSalas";
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(723, 434);
+            this.Controls.Add(this.txt_visitantes);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "PantallaSala";
+            this.Text = "Pantalla Sala";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label txt_visitantes;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
