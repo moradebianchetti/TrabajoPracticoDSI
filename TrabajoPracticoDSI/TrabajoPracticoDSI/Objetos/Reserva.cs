@@ -37,8 +37,6 @@ namespace TrabajoPracticoDSI.Objetos
 
                 string[] hoy = DateTime.Now.ToString().Split(' ');
                 string[] fechaDiaReserva = fechaDelDia.ToString().Split(' ');
-
-                //MessageBox.Show("fecha dia" + hoy[0] + ", " + "datetimenow " + fechaDiaReserva[0]);
               
                 if (((horaFinEntrada > horaInicioReserva) || (horaInicioEntrada < horaFinReserva)) && (hoy[0] == fechaDiaReserva[0]))
                 {

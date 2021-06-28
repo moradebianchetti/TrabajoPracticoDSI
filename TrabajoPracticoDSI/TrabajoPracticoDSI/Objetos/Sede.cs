@@ -54,7 +54,7 @@ namespace TrabajoPracticoDSI.Objetos
                 tarifa.fechaInicioVigencia = tarifas.Rows[i]["fechaInicioVigencia"].ToString();
                 tarifa.montoAdicionalGuia = int.Parse(tarifas.Rows[i]["montoAdicionalGuia"].ToString());
                 tarifa.idSede = int.Parse(tarifas.Rows[i]["idSede"].ToString());
-
+                
                 if (tarifa.esVigente())
                 {
                     int idTipoVisita = int.Parse(tarifas.Rows[i]["idTipoVisita"].ToString());
@@ -67,7 +67,6 @@ namespace TrabajoPracticoDSI.Objetos
                     tarifa.tipoEntrada.id = idTipoEntrada;
 
                     tarifasSede.Add(tarifa);
-                    //MessageBox.Show(" "+ tarifa.tipoVisita.id);
                 }
             }
 

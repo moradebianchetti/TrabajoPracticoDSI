@@ -20,12 +20,10 @@ namespace TrabajoPracticoDSI.Objetos
         public bool ventaConfirmada { get; set; }
         public int visitantesSede { get; set; }
         public Sesion sesion { get; set; }
-        //public int cantidadEntrada { get; set; }
 
         public string sesionUsuarioLogueado { get; set; }
 
         Conexion_DB _DB = new Conexion_DB();
-        //this.sedeActual = new Sede();
         
         int duracionExposiciones = 0;
 
@@ -71,8 +69,6 @@ namespace TrabajoPracticoDSI.Objetos
         public void tomarSeleccionTarifa(Tarifa tarifa)
         {
             this.tarifaSeleccionada = tarifa;
-            this.tarifaSeleccionada.tipoVisita.id = tarifa.tipoVisita.id;
-            this.tarifaSeleccionada.tipoEntrada.id = tarifa.tipoEntrada.id;
             calcularDuracionAExposicionesVigentes();
             Frm_principal.pantalla.solicitarSeleccionCantidadEntradas();
         }
@@ -80,7 +76,6 @@ namespace TrabajoPracticoDSI.Objetos
         private void calcularDuracionAExposicionesVigentes()
         {
             duracionExposiciones = this.sedeActual.obtenerDuracionAExposicionesVigentes();
-            //MessageBox.Show("Duracion " + duracionExposiciones);
         }
 
         public void tomarSeleccionCantidadEntradas(int cantidadIngresada)
@@ -130,33 +125,51 @@ namespace TrabajoPracticoDSI.Objetos
         }
         private void RegistrarEntrada(int cantidadEntrada, int montoTotal)
         {
+            List<Entrada> listaEntradas = new List<Entrada>();
+            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
             for (int i = 0; i < cantidadEntrada; i++)
             {
-               
+                int numeroEntrada = mayorNumero + i + 1;
                 Entrada entrada = new Entrada();
-                int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
-                entrada.newEntrada(this.fechaHoraActual, sedeActual, tarifaSeleccionada, mayorNumero);
-               
+
+                entrada.newEntrada(this.fechaHoraActual, sedeActual, this.tarifaSeleccionada, numeroEntrada);
+
+                listaEntradas.Add(entrada);
+
             }
-            imprimirEntradas(cantidadEntrada);
+            MessageBox.Show("Se confirmo su compra con éxito");
+            imprimirEntradas(listaEntradas);
         }
-        private void imprimirEntradas(int cantidadEntrada)
+        private void imprimirEntradas(List<Entrada> listaEntradas)
         {
-            for (int i = 0; i < cantidadEntrada; i++)
+            foreach (Entrada item in listaEntradas)
             {
-                //ImpresorEntradas.imprimirEntradas();
+                ImpresorEntradas impresor = new ImpresorEntradas();
+                impresor.imprimirEntradas(item);
+
             }
             actualizarCantidadVisitantes();
         }
         private void actualizarCantidadVisitantes()
         {
-            //PantallaSala.actualizarCantidadVisitantes(visitantesSede);
+            for (int i = 0; i < 3; i++)
+            {
+                PantallaSala pantallaSala = new PantallaSala();
+                pantallaSala.actualizarCantidadVisitantes(visitantesSede, sedeActual);
+
+            }
+            
             actualizarVisitantesPantalla();
         }
         private void actualizarVisitantesPantalla()
         {
-           // PantallaEntrada.actualizarCantidadVisitantes(visitantesSede);
-
+            PantallaEntrada pantallaEntrada = new PantallaEntrada();
+            pantallaEntrada.actualizarCantidadVisitantes(visitantesSede, sedeActual);
+            finCU();
+        }
+        private void finCU()
+        {
+            Frm_principal.pantalla.Close();
         }
     }
 }
