@@ -77,6 +77,24 @@
     <Compile Include="Formularios\Frm_pantallaRegistrarVenta.Designer.cs">
       <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\ImpresorEntradas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ImpresorEntradas.Designer.cs">
+      <DependentUpon>ImpresorEntradas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\PantallaEntrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\PantallaEntrada.Designer.cs">
+      <DependentUpon>PantallaEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\PantallaSala.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\PantallaSala.Designer.cs">
+      <DependentUpon>PantallaSala.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Frm_pantallaRegistrarVenta.resx">
       <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\ImpresorEntradas.resx">
+      <DependentUpon>ImpresorEntradas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_principal.resx">
       <DependentUpon>Frm_principal.cs</DependentUpon>

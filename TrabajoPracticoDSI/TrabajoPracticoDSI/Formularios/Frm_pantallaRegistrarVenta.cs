@@ -16,7 +16,7 @@ namespace TrabajoPracticoDSI.Formularios
         //Atributos
         public List<Tarifa> listaTarifas = new List<Tarifa>();
         GestorRegistrarVentaEntrada gestor = new GestorRegistrarVentaEntrada();
-
+        public Tarifa tarifaSeleccionada= new Tarifa();
 
         public Frm_pantallaRegistrarVenta()
         {
@@ -57,14 +57,17 @@ namespace TrabajoPracticoDSI.Formularios
 
         private void tomarSeleccionTarifa(object sender, EventArgs e)
         {
-            Tarifa tarifa = new Tarifa();
-            tarifa.monto = int.Parse(grid_Tarifas.CurrentRow.Cells["Monto"].Value.ToString());
-            int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
-            tarifa.tipoVisita = listaTarifas[indiceSeleccionado].tipoVisita;
-            tarifa.tipoEntrada = listaTarifas[indiceSeleccionado].tipoEntrada;
-            tarifa.montoAdicionalGuia = int.Parse(grid_Tarifas.CurrentRow.Cells["MontoGuia"].Value.ToString());
 
-            gestor.tomarSeleccionTarifa(tarifa);
+            this.tarifaSeleccionada.monto = int.Parse(grid_Tarifas.CurrentRow.Cells["Monto"].Value.ToString());
+            int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
+            //this.tarifaSeleccionada.fechaInicioVigencia = DateTime.Now.ToString("dd-MM-yyyy");
+            this.tarifaSeleccionada.fechaInicioVigencia = "27-06-2021";
+            this.tarifaSeleccionada.fechaFinVigencia = DateTime.Now.ToString("dd-MM-yyyy"); //agregarle dias
+            this.tarifaSeleccionada.tipoVisita = listaTarifas[indiceSeleccionado].tipoVisita;
+            this.tarifaSeleccionada.tipoEntrada = listaTarifas[indiceSeleccionado].tipoEntrada;
+            this.tarifaSeleccionada.montoAdicionalGuia = int.Parse(grid_Tarifas.CurrentRow.Cells["MontoGuia"].Value.ToString());
+
+            gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
             Btn_1.Visible = false;
             Btn_2.Visible = true;
@@ -80,12 +83,35 @@ namespace TrabajoPracticoDSI.Formularios
         private void mostrarSeleccionCantidadEntradas()
         {
 
-            
-        }
 
+        }
         private void tomarSeleccionCantidadEntradas(object sender, EventArgs e)
         {
-            gestor.tomarSeleccionCantidadEntradas();
+            gestor.tomarSeleccionCantidadEntradas(int.Parse(msk_Entradas.Text));
+
+        }
+
+        public void mostrarEntradasAComprar()
+        {
+            groupBox1.Visible = true;
+            txt_cantidad.Text = msk_Entradas.Text;
+            txt_montoU.Text = this.tarifaSeleccionada.monto.ToString();
+
+            txt_montoT.Text = (this.tarifaSeleccionada.monto * int.Parse(msk_Entradas.Text)).ToString();
+        }
+        public void solicitarConfirmacionCompra()
+        {
+            MessageBox.Show("¿Desea confirmar la compra?"); //VER ESTO
+        }
+       
+        private void tomarSeleccionConfirmarCompra(object sender, EventArgs e)
+        {
+            gestor.tomarSeleccionConfirmarCompra(int.Parse(msk_Entradas.Text), int.Parse(txt_montoT.Text));
+        }
+
+        private void Frm_pantallaRegistrarVenta_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

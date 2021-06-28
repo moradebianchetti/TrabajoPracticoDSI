@@ -6,25 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoPracticoDSI.Backend;
+using TrabajoPracticoDSI.Formularios;
 
 namespace TrabajoPracticoDSI.Objetos
 {
     class GestorRegistrarVentaEntrada
     {
         //Atributos
-        public int fechaHoraAtual { get; set; }
+        public DateTime fechaHoraActual { get; set; }
         public Sede sedeActual { get; set; }
-        public Sesion sesioUsuarioLoguead { get; set; }
-        public int tarifaSeleccionada { get; set; }
-        public int tarifaVigente { get; set; }
+        public Tarifa tarifaSeleccionada { get; set; }
+        List<Tarifa> tarifaVigente = new List<Tarifa>();
         public bool ventaConfirmada { get; set; }
         public int visitantesSede { get; set; }
+        public Sesion sesion { get; set; }
+        //public int cantidadEntrada { get; set; }
+
+        public string sesionUsuarioLogueado { get; set; }
 
         Conexion_DB _DB = new Conexion_DB();
         //this.sedeActual = new Sede();
-        List<Tarifa> tarifas = new List<Tarifa>();
         
-
         int duracionExposiciones = 0;
 
         public void tomarSeleccionOpcionRegistrarVenta(Sesion sesion)
@@ -51,9 +53,9 @@ namespace TrabajoPracticoDSI.Objetos
                     break;
             }
 
-            tarifas = buscarTarifa();
+            this.tarifaVigente = buscarTarifa();
 
-            Frm_principal.pantalla.solicitaSeleccionTarifa(tarifas);
+            Frm_principal.pantalla.solicitaSeleccionTarifa(this.tarifaVigente);
         }
 
         public List<Tarifa> buscarTarifa()
@@ -68,6 +70,9 @@ namespace TrabajoPracticoDSI.Objetos
 
         public void tomarSeleccionTarifa(Tarifa tarifa)
         {
+            this.tarifaSeleccionada = tarifa;
+            this.tarifaSeleccionada.tipoVisita.id = tarifa.tipoVisita.id;
+            this.tarifaSeleccionada.tipoEntrada.id = tarifa.tipoEntrada.id;
             calcularDuracionAExposicionesVigentes();
             Frm_principal.pantalla.solicitarSeleccionCantidadEntradas();
         }
@@ -78,13 +83,14 @@ namespace TrabajoPracticoDSI.Objetos
             MessageBox.Show("Duracion " + duracionExposiciones);
         }
 
-        public void tomarSeleccionCantidadEntradas()
+        public void tomarSeleccionCantidadEntradas(int cantidadIngresada)
         {
-            int cantidadMaximaVisitantes = buscarCapacidaMaxima();
-
-            validarCantidadVisitantesActuales(buscarCapacidaMaxima, buscarCantidadVisitantesEnSede);
+            sedeActual.cantidadMaxVisitantes = buscarCapacidadMaxima();
+            int visitantesEnSede = buscarCantidadVisitantesEnSede();
+            this.visitantesSede = visitantesEnSede;
+            validarCantidadVisitantesActuales(this.visitantesSede, cantidadIngresada);
         }
-        public int buscarCapacidaMaxima()
+        public int buscarCapacidadMaxima()
         {
             return this.sedeActual.cantidadMaxVisitantes; 
         }
@@ -94,15 +100,62 @@ namespace TrabajoPracticoDSI.Objetos
             return this.sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
         }
 
-        private void validarCantidadVisitantesActuales(int buscarCapacidaMaxima, int buscarCantidadVisitantesEnSede)
+        private void validarCantidadVisitantesActuales( int visitantesEnSede, int cantidadIngresada)
         {
-               
-            
-            if (cantidadMaxVisitantes<cantidadVisitantesActuales)
+            int suma = cantidadIngresada + visitantesEnSede;
+
+            if (this.sedeActual.cantidadMaxVisitantes < suma)
             {
-                MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo");
+                MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo.");
                 return;
             }
+            else
+            {
+                Frm_principal.pantalla.mostrarEntradasAComprar();
+            }
+        }
+        public void tomarSeleccionConfirmarCompra(int cantidadEntrada, int montoTotal)
+        {
+            this.buscarUltimoNroEntrada(cantidadEntrada, montoTotal);
+        }
+        private void buscarUltimoNroEntrada(int cantidadEntrada, int montoTotal)
+        {
+            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
+            obtenerFechaHoraActual(cantidadEntrada, montoTotal, mayorNumero);
+        }
+        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal, int mayorNumero)
+        {
+            this.fechaHoraActual = DateTime.Now;
+            RegistrarEntrada(cantidadEntrada, montoTotal, mayorNumero);
+        }
+        private void RegistrarEntrada(int cantidadEntrada, int montoTotal, int mayorNumero)
+        {
+            for (int i = 0; i < cantidadEntrada; i++)
+            {
+               
+                Entrada entrada = new Entrada();
+                entrada.newEntrada(this.fechaHoraActual, sedeActual, tarifaSeleccionada, mayorNumero);
+                //imprimirEntradas(cantidadEntrada);
+            }
+            imprimirEntradas(cantidadEntrada);
+        }
+        private void imprimirEntradas(int cantidadEntrada)
+        {
+            for (int i = 0; i < cantidadEntrada; i++)
+            {
+                ImpresorEntradas.imprimirEntradas();
+            }
+            actualizarCantidadVisitantes();
+        }
+        private void actualizarCantidadVisitantes()
+        {
+            PantallaSala.actualizarCantidadVisitantes(visitantesSede);
+            actualizarVisitantesPantalla();
+        }
+        private void actualizarVisitantesPantalla()
+        {
+            PantallaEntrada.actualizarCantidadVisitantes(visitantesSede);
+
         }
     }
 }
