@@ -92,7 +92,7 @@ namespace TrabajoPracticoDSI.Objetos
 
         public int buscarCantidadVisitantesEnSede()
         {
-            return this.sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
+            return this.sedeActual.obtenerCantidadVisitantesEnSede(duracionExposiciones);
         }
 
         private void validarCantidadVisitantesActuales( int visitantesEnSede, int cantidadIngresada)

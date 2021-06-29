@@ -34,9 +34,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txt_cantidad = new System.Windows.Forms.Label();
-            this.txt_montoU = new System.Windows.Forms.Label();
             this.txt_montoT = new System.Windows.Forms.Label();
+            this.txt_montoU = new System.Windows.Forms.Label();
+            this.txt_cantidad = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.button_Museo1 = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.btn_confirmar = new TrabajoPracticoDSI.Clase.Button_Museo();
             this.Btn_2 = new TrabajoPracticoDSI.Clase.Button_Museo();
@@ -49,9 +52,6 @@
             this.MontoGuia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Guia = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Indice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_Tarifas)).BeginInit();
             this.SuspendLayout();
@@ -122,15 +122,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
             // 
-            // txt_cantidad
+            // txt_montoT
             // 
-            this.txt_cantidad.AutoSize = true;
-            this.txt_cantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_cantidad.Location = new System.Drawing.Point(156, 16);
-            this.txt_cantidad.Name = "txt_cantidad";
-            this.txt_cantidad.Size = new System.Drawing.Size(46, 17);
-            this.txt_cantidad.TabIndex = 12;
-            this.txt_cantidad.Text = "label5";
+            this.txt_montoT.AutoSize = true;
+            this.txt_montoT.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_montoT.Location = new System.Drawing.Point(156, 72);
+            this.txt_montoT.Name = "txt_montoT";
+            this.txt_montoT.Size = new System.Drawing.Size(46, 17);
+            this.txt_montoT.TabIndex = 14;
+            this.txt_montoT.Text = "label7";
             // 
             // txt_montoU
             // 
@@ -142,15 +142,48 @@
             this.txt_montoU.TabIndex = 13;
             this.txt_montoU.Text = "label6";
             // 
-            // txt_montoT
+            // txt_cantidad
             // 
-            this.txt_montoT.AutoSize = true;
-            this.txt_montoT.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_montoT.Location = new System.Drawing.Point(156, 72);
-            this.txt_montoT.Name = "txt_montoT";
-            this.txt_montoT.Size = new System.Drawing.Size(46, 17);
-            this.txt_montoT.TabIndex = 14;
-            this.txt_montoT.Text = "label7";
+            this.txt_cantidad.AutoSize = true;
+            this.txt_cantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_cantidad.Location = new System.Drawing.Point(156, 16);
+            this.txt_cantidad.Name = "txt_cantidad";
+            this.txt_cantidad.Size = new System.Drawing.Size(46, 17);
+            this.txt_cantidad.TabIndex = 12;
+            this.txt_cantidad.Text = "label5";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label5.Location = new System.Drawing.Point(12, 242);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 17);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "label5";
+            this.label5.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label6.Location = new System.Drawing.Point(101, 242);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 17);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "label6";
+            this.label6.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label7.Location = new System.Drawing.Point(82, 242);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 17);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "-";
+            this.label7.Visible = false;
             // 
             // button_Museo1
             // 
@@ -227,11 +260,11 @@
             this.MontoGuia,
             this.Guia,
             this.Indice});
-            this.grid_Tarifas.Location = new System.Drawing.Point(12, 34);
+            this.grid_Tarifas.Location = new System.Drawing.Point(74, 28);
             this.grid_Tarifas.Name = "grid_Tarifas";
             this.grid_Tarifas.Pp_FormatoGrid = null;
             this.grid_Tarifas.Pp_NombreTabla = null;
-            this.grid_Tarifas.Size = new System.Drawing.Size(583, 196);
+            this.grid_Tarifas.Size = new System.Drawing.Size(465, 196);
             this.grid_Tarifas.TabIndex = 0;
             // 
             // TipoVisita
@@ -259,6 +292,7 @@
             // 
             this.Guia.HeaderText = "Guía";
             this.Guia.Name = "Guia";
+            this.Guia.Visible = false;
             this.Guia.Width = 120;
             // 
             // Indice
@@ -266,39 +300,6 @@
             this.Indice.HeaderText = "asdasd";
             this.Indice.Name = "Indice";
             this.Indice.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(12, 242);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 17);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "label5";
-            this.label5.Visible = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label6.Location = new System.Drawing.Point(101, 242);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 17);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "label6";
-            this.label6.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label7.Location = new System.Drawing.Point(82, 242);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(13, 17);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "-";
-            this.label7.Visible = false;
             // 
             // Frm_pantallaRegistrarVenta
             // 
@@ -345,14 +346,14 @@
         private System.Windows.Forms.Label txt_montoT;
         private System.Windows.Forms.Label txt_montoU;
         private System.Windows.Forms.Label txt_cantidad;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoVisita;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn MontoGuia;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Guia;
         private System.Windows.Forms.DataGridViewTextBoxColumn Indice;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
     }
 }

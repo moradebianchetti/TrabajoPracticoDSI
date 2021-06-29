@@ -46,6 +46,7 @@ namespace TrabajoPracticoDSI.Objetos
 
             List<Tarifa> tarifasSede = new List<Tarifa>();
 
+            //Se aplica el patron experto en información, bajo acoplamiento y alta cohesión
             for (int i = 0; i < tarifas.Rows.Count; i++)
             {
                 Tarifa tarifa = new Tarifa();
@@ -75,6 +76,8 @@ namespace TrabajoPracticoDSI.Objetos
 
         public int obtenerDuracionAExposicionesVigentes()
         {
+
+            //Se aplica el patron experto en informacion y bajo acoplamiento.
             int duracionTotal = 0;
             string sql = $"SELECT * FROM Exposicion WHERE idSede = {this.id}";
             exposiciones = _DB.EjecutarSelect(sql);
@@ -96,23 +99,24 @@ namespace TrabajoPracticoDSI.Objetos
 
         }
 
-        internal int obtenerCantidadReservasYEntradas(int duracionExposicion)
+        internal int obtenerCantidadVisitantesEnSede(int duracionExposicion)
         {
-            int CantidadReservas = buscasrReservasDelDia(duracionExposicion);
+            int CantidadReservas = buscarReservasDelDia(duracionExposicion);
             int CantidadEntradas = buscarEntradasDelDia();
             return CantidadReservas+CantidadEntradas;
         }
 
-        private int buscasrReservasDelDia(int duracionExposicion)
+        private int buscarReservasDelDia(int duracionExposicion)
         {
+            //Se aplica el patron experto en información y bajo acoplamiento ...
             List<Reserva> Reservas = new List<Reserva>();
             int cantidadAlumnosConfirmada = 0;
             string sql1 = $"SELECT * FROM Reserva WHERE idSede = {this.id}";
             datosReservas = _DB.EjecutarSelect(sql1);
             Reservas = reserva.esHoraFechaDelDia(datosReservas, duracionExposicion);
-            foreach (var item in Reservas)
+            foreach (Reserva reserva in Reservas)
             {
-                cantidadAlumnosConfirmada = cantidadAlumnosConfirmada + item.cantidadAlumnosConfirmados;
+                cantidadAlumnosConfirmada = cantidadAlumnosConfirmada + reserva.cantidadAlumnosConfirmados;
             }
             return cantidadAlumnosConfirmada;
         }

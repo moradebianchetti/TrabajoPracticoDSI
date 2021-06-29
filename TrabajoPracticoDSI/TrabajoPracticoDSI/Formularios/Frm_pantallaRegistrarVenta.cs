@@ -62,6 +62,10 @@ namespace TrabajoPracticoDSI.Formularios
 
             gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
+        }
+
+        public void solicitarSeleccionCantidadEntradas()
+        {
             label6.Text = tarifaSeleccionada.tipoVisita.nombre.ToString();
             label6.Visible = true;
             label5.Text = tarifaSeleccionada.tipoEntrada.nombre.ToString();
@@ -71,22 +75,15 @@ namespace TrabajoPracticoDSI.Formularios
             Btn_2.Visible = true;
             grid_Tarifas.Enabled = false;
             msk_Entradas.Enabled = true;
+          
         }
 
-        public void solicitarSeleccionCantidadEntradas()
-        {
-            mostrarSeleccionCantidadEntradas();
-        }
-
-        private void mostrarSeleccionCantidadEntradas()
-        {
-
-
-        }
+       
         private void tomarSeleccionCantidadEntradas(object sender, EventArgs e)
         {
-            if(msk_Entradas.Text != "")
+            if (msk_Entradas.Text != "")
             {
+                Btn_2.Visible = false;
                 gestor.tomarSeleccionCantidadEntradas(int.Parse(msk_Entradas.Text));
             }else
             {
@@ -126,10 +123,7 @@ namespace TrabajoPracticoDSI.Formularios
         private void cancelarVenta(object sender, EventArgs e)
         {
             this.Close();
-
-            //Frm_pantallaRegistrarVenta ss = new Frm_pantallaRegistrarVenta();
-            //ss.Show();
-            //ss.InitializeComponent();
+            
 
         }
     }
