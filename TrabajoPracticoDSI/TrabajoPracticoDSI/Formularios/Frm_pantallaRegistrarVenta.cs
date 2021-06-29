@@ -126,6 +126,11 @@ namespace TrabajoPracticoDSI.Formularios
         private void cancelarVenta(object sender, EventArgs e)
         {
             this.Close();
+
+            //Frm_pantallaRegistrarVenta ss = new Frm_pantallaRegistrarVenta();
+            //ss.Show();
+            //ss.InitializeComponent();
+
         }
     }
 }

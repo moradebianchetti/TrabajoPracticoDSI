@@ -35,6 +35,8 @@ namespace TrabajoPracticoDSI
 
         private void button_Aerolinea1_Click(object sender, EventArgs e)
         {
+
+
             pantalla.opcionRegistrarVenta(sesion);
         }
 

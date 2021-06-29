@@ -123,7 +123,7 @@ namespace TrabajoPracticoDSI.Objetos
             string sql2 =$"SELECT * FROM Entrada WHERE idSede = {this.id}";
             datosEntradas = _DB.EjecutarSelect(sql2);
             Entradas = entrada.BuscarEsFechaDelDia(datosEntradas, Entradas);
-            
+
             return Entradas.Count();
         }
         public int obtenerUltimoNroEntrada()

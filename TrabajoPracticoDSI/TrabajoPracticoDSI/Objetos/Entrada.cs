@@ -13,7 +13,7 @@ namespace TrabajoPracticoDSI.Objetos
     {
         public string fechaVenta { get; set; }
         public string horaVenta { get; set; }
-        public int monto { get; set; }
+        public float monto { get; set; }
         public int numero { get; set; }
         public Sede sede { get; set; }
         public Tarifa tarifa { get; set; }
@@ -22,15 +22,19 @@ namespace TrabajoPracticoDSI.Objetos
 
         public List<Entrada> BuscarEsFechaDelDia(DataTable datosEntrada, List<Entrada> entradas)
         {
-            
             for (int i = 0; i < datosEntrada.Rows.Count; i++)
             {
+
                 fechaVenta = datosEntrada.Rows[i]["fechaVenta"].ToString();
                 horaVenta = datosEntrada.Rows[i]["horaVenta"].ToString();
                 monto = int.Parse(datosEntrada.Rows[i]["monto"].ToString());
                 numero = int.Parse(datosEntrada.Rows[i]["numero"].ToString());
 
-                if (fechaVenta == DateTime.Now.ToString("dd-MM-yyyy"))
+                string[] hoy = DateTime.Now.ToString().Split(' ');
+                string[] fechaDiaEntrada = fechaVenta.ToString().Split(' ');
+
+
+                if (fechaDiaEntrada[0] == hoy[0])
                 {
                     entradas.Add(this);
                 }
