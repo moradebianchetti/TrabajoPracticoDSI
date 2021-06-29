@@ -97,8 +97,7 @@ namespace TrabajoPracticoDSI.Objetos
 
         private void validarCantidadVisitantesActuales( int visitantesEnSede, int cantidadIngresada)
         {
-              
-
+             
             if (this.sedeActual.cantidadMaxVisitantes < (cantidadIngresada + visitantesEnSede))
             {
                 MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo.");
@@ -116,18 +115,17 @@ namespace TrabajoPracticoDSI.Objetos
         }
         private void buscarUltimoNroEntrada(int cantidadEntrada, int montoTotal)
         {
-            
-            obtenerFechaHoraActual(cantidadEntrada, montoTotal);
+            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
+            obtenerFechaHoraActual(cantidadEntrada, montoTotal, mayorNumero);
         }
-        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal)
+        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal, int mayorNumero)
         {
             this.fechaHoraActual = DateTime.Now;
-            RegistrarEntrada(cantidadEntrada, montoTotal);
+            RegistrarEntrada(cantidadEntrada, montoTotal, mayorNumero);
         }
-        private void RegistrarEntrada(int cantidadEntrada, int montoTotal)
+        private void RegistrarEntrada(int cantidadEntrada, int montoTotal, int mayorNumero)
         {
             List<Entrada> listaEntradas = new List<Entrada>();
-            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
             for (int i = 0; i < cantidadEntrada; i++)
             {
                 int numeroEntrada = mayorNumero + i + 1;
@@ -170,7 +168,6 @@ namespace TrabajoPracticoDSI.Objetos
         }
         private void finCU()
         {
-           
             Frm_principal.pantalla.Close();
             Application.Restart();
         }
