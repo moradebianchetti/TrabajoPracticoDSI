@@ -106,8 +106,7 @@ namespace TrabajoPracticoDSI.Objetos
             }
             else
             {
-                this.visitantesSede += cantidadIngresada;
-                //personasEnMuseo = cantidadIngresada + visitantesEnSede; 
+                this.visitantesSede += cantidadIngresada; 
                 Frm_principal.pantalla.mostrarEntradasAComprar();
             }
         }
