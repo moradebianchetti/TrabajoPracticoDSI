@@ -25,12 +25,12 @@ namespace TrabajoPracticoDSI.Objetos
 
         Conexion_DB _DB = new Conexion_DB();
         
-        int duracionExposiciones = 0;
-
         public void tomarSeleccionOpcionRegistrarVenta(Sesion sesion)
         {
             this.buscarSede(sesion);
         }
+        
+        int duracionExposiciones = 0;
 
         public void buscarSede(Sesion sesion)
         {
@@ -97,15 +97,17 @@ namespace TrabajoPracticoDSI.Objetos
 
         private void validarCantidadVisitantesActuales( int visitantesEnSede, int cantidadIngresada)
         {
-            int suma = cantidadIngresada + visitantesEnSede;
+              
 
-            if (this.sedeActual.cantidadMaxVisitantes < suma)
+            if (this.sedeActual.cantidadMaxVisitantes < (cantidadIngresada + visitantesEnSede))
             {
                 MessageBox.Show("La cantidad de entradas supera a la cantidad maxima de visitantes del museo.");
                 return;
             }
             else
             {
+                this.visitantesSede += cantidadIngresada;
+                //personasEnMuseo = cantidadIngresada + visitantesEnSede; 
                 Frm_principal.pantalla.mostrarEntradasAComprar();
             }
         }
@@ -155,7 +157,7 @@ namespace TrabajoPracticoDSI.Objetos
             for (int i = 0; i < 3; i++)
             {
                 PantallaSala pantallaSala = new PantallaSala();
-                pantallaSala.actualizarCantidadVisitantes(visitantesSede, sedeActual);
+                pantallaSala.actualizarCantidadVisitantes(this.visitantesSede, sedeActual);
 
             }
             
@@ -164,12 +166,14 @@ namespace TrabajoPracticoDSI.Objetos
         private void actualizarVisitantesPantalla()
         {
             PantallaEntrada pantallaEntrada = new PantallaEntrada();
-            pantallaEntrada.actualizarCantidadVisitantes(visitantesSede, sedeActual);
+            pantallaEntrada.actualizarCantidadVisitantes(this.visitantesSede, sedeActual);
             finCU();
         }
         private void finCU()
         {
+           
             Frm_principal.pantalla.Close();
+            Application.Restart();
         }
     }
 }

@@ -76,7 +76,6 @@ namespace TrabajoPracticoDSI.Formularios
 
         public Respuesta Validar_usuario(string usr, string pssw)
         {
-            //    SELECT * FROM usuarios WHERE n_usuario = 'Luis' AND password = '123'
             string sql = "";
             sql = "SELECT * FROM usuario WHERE nombre = '" + usr + "' AND contraseña= '" + pssw + "'";
 

@@ -12,7 +12,7 @@ namespace TrabajoPracticoDSI.Objetos
     {
         Conexion_DB _DB = new Conexion_DB();
         public int id { get; set; }
-        public int porcentaje { get; set; }
+        public float porcentaje { get; set; }
         public string nombre { get; set; }
 
         public void getNombreTipoEntrada(int idTipoEntrada)
@@ -20,7 +20,7 @@ namespace TrabajoPracticoDSI.Objetos
             string sql = $"SELECT * FROM Tipo_Entrada WHERE id = {idTipoEntrada}";
             DataTable tipoEntrada = _DB.EjecutarSelect(sql);
             this.nombre = tipoEntrada.Rows[0]["nombre"].ToString();
-            this.porcentaje =int.Parse(tipoEntrada.Rows[0]["porcentaje"].ToString());
+            this.porcentaje = float.Parse(tipoEntrada.Rows[0]["porcentaje"].ToString());
         }
     }
 }

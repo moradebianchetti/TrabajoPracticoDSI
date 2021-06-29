@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TrabajoPracticoDSI.Objetos
 {
@@ -13,7 +14,7 @@ namespace TrabajoPracticoDSI.Objetos
         public TipoEntrada tipoEntrada { get; set; }
         public TipoVisita tipoVisita { get; set; }
         public int montoAdicionalGuia { get; set; }
-        public int monto { get; set; }
+        public float monto { get; set; }
         public int idSede { get; set; }
 
         public bool esVigente()
@@ -40,7 +41,8 @@ namespace TrabajoPracticoDSI.Objetos
 
         internal void calcularMonto(int montoBase)
         {
-            this.monto = montoBase * (1 + (this.tipoVisita.porcentaje + this.tipoEntrada.porcentaje));
+            
+            this.monto = montoBase * (1 + (this.tipoVisita.porcentaje/100 + this.tipoEntrada.porcentaje/100));
 
         }
     }
