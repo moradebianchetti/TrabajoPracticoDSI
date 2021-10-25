@@ -14,12 +14,17 @@ namespace TrabajoPracticoDSI.Formularios
     public partial class Frm_pantallaRegistrarVenta : Form
     {
         //Atributos
-        public List<Tarifa> listaTarifas = new List<Tarifa>();
-        GestorRegistrarVentaEntrada gestor = new GestorRegistrarVentaEntrada();
+        public GestorRegistrarVentaEntrada gestor { get; set; }
+
+        public List<object[]> listaTarifas = new List<object[]>();
+        
         public Tarifa tarifaSeleccionada= new Tarifa();
+
 
         public Frm_pantallaRegistrarVenta()
         {
+            gestor = new GestorRegistrarVentaEntrada();
+
             InitializeComponent();
         }
 
@@ -34,35 +39,41 @@ namespace TrabajoPracticoDSI.Formularios
             this.ShowDialog();
         }
         
-        public void solicitaSeleccionTarifa(List<Tarifa> tarifas)
+        
+
+        private void mostrarTarifas(List<object[]> tarifas)
+        {
+            grid_Tarifas.Rows.Clear();
+            int cont = 1;
+
+            foreach (var item in tarifas)
+            {
+                grid_Tarifas.Rows.Add();
+                grid_Tarifas.Rows[cont].Cells[0].Value = tarifas[cont];
+                grid_Tarifas.Rows[cont].Cells[1].Value = tarifas[cont];
+                grid_Tarifas.Rows[cont].Cells[2].Value = tarifas[cont];
+                grid_Tarifas.Rows[cont].Cells[3].Value = tarifas[cont];
+                grid_Tarifas.Rows[cont].Cells[5].Value = cont;
+                cont++;
+            }
+
+
+        }
+        public void solicitaSeleccionTarifa(List<object[]> tarifas)
         {
             listaTarifas = tarifas;
             mostrarTarifas(tarifas);
         }
-
-        private void mostrarTarifas(List<Tarifa> tarifas)
-        {
-            grid_Tarifas.Rows.Clear();
-            for (int i = 0; i < tarifas.Count; i++)
-            {
-                
-                grid_Tarifas.Rows.Add();
-                grid_Tarifas.Rows[i].Cells[0].Value = tarifas[i].tipoVisita.nombre;
-                grid_Tarifas.Rows[i].Cells[1].Value = tarifas[i].tipoEntrada.nombre;
-                grid_Tarifas.Rows[i].Cells[2].Value = tarifas[i].monto;
-                grid_Tarifas.Rows[i].Cells[3].Value = tarifas[i].montoAdicionalGuia;
-                grid_Tarifas.Rows[i].Cells[5].Value = i;
-            }
-        }
-
         private void tomarSeleccionTarifa(object sender, EventArgs e)
         {
             int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
-            this.tarifaSeleccionada = listaTarifas[indiceSeleccionado];
+            Object[] aux = listaTarifas[indiceSeleccionado];
+            this.tarifaSeleccionada = (Tarifa)aux[5];
 
             gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
         }
+
 
         public void solicitarSeleccionCantidadEntradas()
         {
