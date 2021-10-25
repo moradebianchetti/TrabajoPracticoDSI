@@ -29,9 +29,9 @@ namespace TrabajoPracticoDSI.Objetos
         Reserva reserva = new Reserva();
         Entrada entrada = new Entrada();
 
-        public Sede()
+        public Sede(int id)
         {
-            string sql = $"SELECT * FROM tarifa WHERE idSede = {this.id}";
+            string sql = $"SELECT * FROM tarifa WHERE idSede = {id}";
             tarifas = _DB.EjecutarSelect(sql);
             tarifasSede = new List<Tarifa>();
             tarifasVigentes = new List<object[]>();
@@ -60,7 +60,7 @@ namespace TrabajoPracticoDSI.Objetos
         public List<object[]> obtenerTarifa()
         {
             //Se aplica el patron experto en información, bajo acoplamiento y alta cohesión
-            foreach (Tarifa item in tarifasSede)
+            foreach (Tarifa item in this.tarifasSede)
             {
                 if(item.esVigente())
                 {

@@ -25,7 +25,7 @@ namespace TrabajoPracticoDSI.Objetos
             this.idCargo = int.Parse(emp["idCargo"].ToString());
             this.apellido = emp["apellido"].ToString();
             this.nombre = emp["nombre"].ToString();
-            sedeEmpleado = new Sede();
+            sedeEmpleado = new Sede(int.Parse(emp["idSede"].ToString()));
             this.sedeEmpleado.getSede(int.Parse(emp["idSede"].ToString()));
 
         }

@@ -44,17 +44,19 @@ namespace TrabajoPracticoDSI.Formularios
         private void mostrarTarifas(List<object[]> tarifas)
         {
             grid_Tarifas.Rows.Clear();
-            int cont = 1;
-
+            int cont = 0;
             foreach (var item in tarifas)
             {
-                grid_Tarifas.Rows.Add();
-                grid_Tarifas.Rows[cont].Cells[0].Value = tarifas[cont];
-                grid_Tarifas.Rows[cont].Cells[1].Value = tarifas[cont];
-                grid_Tarifas.Rows[cont].Cells[2].Value = tarifas[cont];
-                grid_Tarifas.Rows[cont].Cells[3].Value = tarifas[cont];
-                grid_Tarifas.Rows[cont].Cells[5].Value = cont;
-                cont++;
+                if(cont < 5)
+                {
+                    grid_Tarifas.Rows.Add();
+                    grid_Tarifas.Rows[cont].Cells[0].Value = item[cont];
+                    grid_Tarifas.Rows[cont].Cells[1].Value = item[cont];
+                    grid_Tarifas.Rows[cont].Cells[2].Value = item[cont];
+                    grid_Tarifas.Rows[cont].Cells[3].Value = item[cont];
+                    grid_Tarifas.Rows[cont].Cells[5].Value = cont;
+                    cont++;
+                }
             }
 
 

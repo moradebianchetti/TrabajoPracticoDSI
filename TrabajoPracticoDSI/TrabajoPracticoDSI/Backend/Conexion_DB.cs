@@ -11,8 +11,8 @@ namespace TrabajoPracticoDSI.Backend
         public enum TipoConexion { simple, transaccion }
 
         //string cadenaConexion = @"Data Source=DESKTOP-II4PPOD\SQLEXPRESS;Initial Catalog=Museo;Integrated Security=True";
-        string cadenaConexion = @"Data Source=LAUTARO\SQLEXPRESS;Initial Catalog=Museo;Integrated Security=True";
-        //string cadenaConexion = "Data Source=DESKTOP-MORA202\\SQLEXPRESS;Initial Catalog=Museo;Integrated Security=True";
+        // string cadenaConexion = @"Data Source=LAUTARO\SQLEXPRESS;Initial Catalog=Museo;Integrated Security=True";
+        string cadenaConexion = "Data Source=DESKTOP-MORA202\\SQLEXPRESS;Initial Catalog=Museo;Integrated Security=True";
         SqlConnection conexion = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
         SqlTransaction Transaccion;
