@@ -134,6 +134,8 @@
     <Compile Include="Objetos\Entrada.cs" />
     <Compile Include="Objetos\Exposicion.cs" />
     <Compile Include="Objetos\GestorRegistrarVentaEntrada.cs" />
+    <Compile Include="Objetos\iObservadorActualizarPantalla.cs" />
+    <Compile Include="Objetos\iSujeto.cs" />
     <Compile Include="Objetos\Obra.cs" />
     <Compile Include="Objetos\Reserva.cs" />
     <Compile Include="Objetos\Sede.cs" />

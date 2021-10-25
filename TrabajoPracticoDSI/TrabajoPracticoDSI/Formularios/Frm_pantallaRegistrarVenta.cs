@@ -47,16 +47,15 @@ namespace TrabajoPracticoDSI.Formularios
             int cont = 0;
             foreach (var item in tarifas)
             {
-                if(cont < 5)
-                {
+                
                     grid_Tarifas.Rows.Add();
-                    grid_Tarifas.Rows[cont].Cells[0].Value = item[cont];
-                    grid_Tarifas.Rows[cont].Cells[1].Value = item[cont];
-                    grid_Tarifas.Rows[cont].Cells[2].Value = item[cont];
-                    grid_Tarifas.Rows[cont].Cells[3].Value = item[cont];
+                    grid_Tarifas.Rows[cont].Cells[0].Value = item[0];
+                    grid_Tarifas.Rows[cont].Cells[1].Value = item[1];
+                    grid_Tarifas.Rows[cont].Cells[2].Value = item[2];
+                    grid_Tarifas.Rows[cont].Cells[3].Value = item[3];
                     grid_Tarifas.Rows[cont].Cells[5].Value = cont;
                     cont++;
-                }
+                
             }
 
 
@@ -70,7 +69,7 @@ namespace TrabajoPracticoDSI.Formularios
         {
             int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
             Object[] aux = listaTarifas[indiceSeleccionado];
-            this.tarifaSeleccionada = (Tarifa)aux[5];
+            this.tarifaSeleccionada = (Tarifa)aux[4];
 
             gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
