@@ -16,6 +16,8 @@ namespace TrabajoPracticoDSI.Objetos
         public string nombre { get; set; }
         public int id { get; set; }
         public int montoBase { get; set; }
+        private List<Tarifa> tarifasSede { get; set; }
+        private List<object[]> tarifasVigentes { get; set; }
 
         Conexion_DB _DB = new Conexion_DB();
 
@@ -26,6 +28,22 @@ namespace TrabajoPracticoDSI.Objetos
         
         Reserva reserva = new Reserva();
         Entrada entrada = new Entrada();
+
+        public Sede()
+        {
+            string sql = $"SELECT * FROM tarifa WHERE idSede = {this.id}";
+            tarifas = _DB.EjecutarSelect(sql);
+            tarifasSede = new List<Tarifa>();
+            tarifasVigentes = new List<object[]>();
+
+            for (int i = 0; i < tarifas.Rows.Count; i++)
+            {
+                Tarifa tarifa = new Tarifa(tarifas.Rows[i]);
+                tarifasSede.Add(tarifa);
+            }
+                
+
+        }
 
         public void getSede(int id)
         {
@@ -39,39 +57,48 @@ namespace TrabajoPracticoDSI.Objetos
             this.nombre = sede.Rows[0]["nombre"].ToString();
         }
 
-        public List<Tarifa> obtenerTarifa()
+        public List<object[]> obtenerTarifa()
         {
-            string sql = $"SELECT * FROM tarifa WHERE idSede = {this.id}";
-            tarifas = _DB.EjecutarSelect(sql);
-
-            List<Tarifa> tarifasSede = new List<Tarifa>();
-
             //Se aplica el patron experto en información, bajo acoplamiento y alta cohesión
-            for (int i = 0; i < tarifas.Rows.Count; i++)
+            foreach (Tarifa item in tarifasSede)
             {
-                Tarifa tarifa = new Tarifa();
-
-                tarifa.fechaFinVigencia = tarifas.Rows[i]["fechaFinVigencia"].ToString();
-                tarifa.fechaInicioVigencia = tarifas.Rows[i]["fechaInicioVigencia"].ToString();
-                tarifa.montoAdicionalGuia = int.Parse(tarifas.Rows[i]["montoAdicionalGuia"].ToString());
-                tarifa.idSede = int.Parse(tarifas.Rows[i]["idSede"].ToString());
-                
-                if (tarifa.esVigente())
+                if(item.esVigente())
                 {
-                    int idTipoVisita = int.Parse(tarifas.Rows[i]["idTipoVisita"].ToString());
-                    int idTipoEntrada = int.Parse(tarifas.Rows[i]["idTipoEntrada"].ToString());
-
-                    tarifa.getTarifaVigente(idTipoVisita, idTipoEntrada);
-                    
-                    tarifa.calcularMonto(montoBase);
-                    tarifa.tipoVisita.id = idTipoVisita;
-                    tarifa.tipoEntrada.id = idTipoEntrada;
-
-                    tarifasSede.Add(tarifa);
+                    object[] conjunto = item.getTarifaVigente(montoBase);
+                    conjunto[4] = item;
+                    tarifasVigentes.Add(conjunto);
+                   
                 }
+
             }
 
-            return tarifasSede;
+            return tarifasVigentes;
+
+            //for (int i = 0; i < tarifas.Rows.Count; i++)
+            //{
+            //    Tarifa tarifa = new Tarifa();
+
+            //    tarifa.fechaFinVigencia = tarifas.Rows[i]["fechaFinVigencia"].ToString();
+            //    tarifa.fechaInicioVigencia = tarifas.Rows[i]["fechaInicioVigencia"].ToString();
+            //    tarifa.montoAdicionalGuia = int.Parse(tarifas.Rows[i]["montoAdicionalGuia"].ToString());
+            //    tarifa.idSede = int.Parse(tarifas.Rows[i]["idSede"].ToString());
+                
+            //    if (tarifa.esVigente())
+            //    {
+            //        int idTipoVisita = int.Parse(tarifas.Rows[i]["idTipoVisita"].ToString());
+            //        int idTipoEntrada = int.Parse(tarifas.Rows[i]["idTipoEntrada"].ToString());
+
+            //        tarifa.getTarifaVigente(idTipoVisita, idTipoEntrada);
+                    
+            //        tarifa.calcularMonto(montoBase);
+            //        tarifa.tipoVisita.id = idTipoVisita;
+            //        tarifa.tipoEntrada.id = idTipoEntrada;
+
+            //        tarifasSede.Add(tarifa);
+            //    }
+            //}
+
+            //return tarifasSede;
         }
 
         public int obtenerDuracionAExposicionesVigentes()

@@ -15,25 +15,33 @@ namespace TrabajoPracticoDSI.Objetos
         public string nombre { get; set; }
         public int idCargo { get; set; }
         public Sede sedeEmpleado { get; set; }
+
         Conexion_DB _DB = new Conexion_DB();
 
-        Sede sede = new Sede();
-
-        public Sede esTuUsuario(Usuario usuario, int idSede)
+        public Empleado(DataRow emp)
         {
-            this.sedeEmpleado = sede;
-            this.sedeEmpleado.id = 0;
+            
+            this.DNI = int.Parse(emp["DNI"].ToString());
+            this.idCargo = int.Parse(emp["idCargo"].ToString());
+            this.apellido = emp["apellido"].ToString();
+            this.nombre = emp["nombre"].ToString();
+            sedeEmpleado = new Sede();
+            this.sedeEmpleado.getSede(int.Parse(emp["idSede"].ToString()));
 
-            if (usuario.dni_empleado == this.DNI)
-                this.sedeEmpleado = this.obtenerSede(idSede);
-
-            return sedeEmpleado;
         }
 
-        public Sede obtenerSede(int id)
+        public bool esTuUsuario(Usuario usuario)
         {
-            sede.getSede(id);
-            return sede;
+            if (usuario.dni_empleado == this.DNI)
+                return true;
+            else
+                return false; ;
+
+        }
+
+        public Sede obtenerSede()
+        {
+            return sedeEmpleado;
         }
     }
 }

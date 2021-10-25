@@ -10,18 +10,38 @@ using TrabajoPracticoDSI.Formularios;
 
 namespace TrabajoPracticoDSI.Objetos
 {
-    class GestorRegistrarVentaEntrada
+    public class GestorRegistrarVentaEntrada
     {
         //Atributos
         public DateTime fechaHoraActual { get; set; }
         public Sede sedeActual { get; set; }
         public Tarifa tarifaSeleccionada { get; set; }
-        List<Tarifa> tarifaVigente = new List<Tarifa>();
+        List<object[]> tarifaVigente = new List<object[]>();
         public bool ventaConfirmada { get; set; }
         public int visitantesSede { get; set; }
         public Sesion sesion { get; set; }
-
+        public List<Empleado> list_empleados { get; set; }
+        public Usuario usuarioActual { get; set; }
         public string sesionUsuarioLogueado { get; set; }
+        public List<Entrada> listaEntradas { get; set; }
+
+        public GestorRegistrarVentaEntrada()
+        {
+            usuarioActual = new Usuario();
+            sesion = new Sesion();
+
+            string sql = "SELECT * FROM Empleado";
+            DataTable empleados = _DB.EjecutarSelect(sql);
+            list_empleados = new List<Empleado>();
+
+            for (int i = 0; i < empleados.Rows.Count; i++)
+            {
+                Empleado empleado = new Empleado(empleados.Rows[i]);
+                list_empleados.Add(empleado);
+            }
+            listaEntradas = new List<Entrada>();
+
+        }
 
         Conexion_DB _DB = new Conexion_DB();
         
@@ -34,21 +54,17 @@ namespace TrabajoPracticoDSI.Objetos
 
         public void buscarSede(Sesion sesion)
         {
-            Usuario usuarioActual = new Usuario();
+            
             usuarioActual.dni_empleado = this.buscarUsuarioLogueado(sesion);
 
-            string sql = "SELECT * FROM Empleado";
-            DataTable empleados = _DB.EjecutarSelect(sql);
-
-            for (int i = 0; i < empleados.Rows.Count; i++)
+            foreach (Empleado item in list_empleados)
             {
-                Empleado empleado = new Empleado();
-                empleado.DNI = int.Parse(empleados.Rows[i]["DNI"].ToString());
-                int idSede = int.Parse(empleados.Rows[i]["idSede"].ToString());
-                this.sedeActual = empleado.esTuUsuario(usuarioActual, idSede);
-
-                if (this.sedeActual.id != 0)
+                if (item.esTuUsuario(usuarioActual))
+                {
+                    this.sedeActual = item.obtenerSede();
                     break;
+                }
+
             }
 
             this.tarifaVigente = buscarTarifa();
@@ -56,7 +72,7 @@ namespace TrabajoPracticoDSI.Objetos
             Frm_principal.pantalla.solicitaSeleccionTarifa(this.tarifaVigente);
         }
 
-        public List<Tarifa> buscarTarifa()
+        public List<object[]> buscarTarifa()
         {
             return this.sedeActual.obtenerTarifa();
         }
@@ -125,13 +141,11 @@ namespace TrabajoPracticoDSI.Objetos
         }
         private void RegistrarEntrada(int cantidadEntrada, int montoTotal, int mayorNumero)
         {
-            List<Entrada> listaEntradas = new List<Entrada>();
+            
             for (int i = 0; i < cantidadEntrada; i++)
             {
                 int numeroEntrada = mayorNumero + i + 1;
-                Entrada entrada = new Entrada();
-
-                entrada.newEntrada(this.fechaHoraActual, sedeActual, this.tarifaSeleccionada, numeroEntrada);
+                Entrada entrada = new Entrada(this.fechaHoraActual, sedeActual, this.tarifaSeleccionada, numeroEntrada);
 
                 listaEntradas.Add(entrada);
 
