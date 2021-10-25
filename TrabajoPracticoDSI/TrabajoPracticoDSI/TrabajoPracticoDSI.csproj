@@ -12,6 +12,22 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +48,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E95A86A478AC88F0746A9A73E9B956C84DE8FA0F</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TrabajoPracticoDSI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,14 +74,94 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Backend\Conexion_DB.cs" />
+    <Compile Include="Clases\Button_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\ComboBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\DataGridView_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\Estilo.cs" />
+    <Compile Include="Clases\ManejoDeTiempos.cs" />
+    <Compile Include="Clases\MaskedTextBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\TextBox_Museo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\Tratamientos_Especiales.cs" />
+    <Compile Include="Formularios\Frm_Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Formularios\Frm_Login.Designer.cs">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Frm_pantallaRegistrarVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Frm_pantallaRegistrarVenta.Designer.cs">
+      <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\ImpresorEntradas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ImpresorEntradas.Designer.cs">
+      <DependentUpon>ImpresorEntradas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\PantallaEntrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\PantallaEntrada.Designer.cs">
+      <DependentUpon>PantallaEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\PantallaSala.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\PantallaSala.Designer.cs">
+      <DependentUpon>PantallaSala.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_principal.Designer.cs">
+      <DependentUpon>Frm_principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objetos\DetalleExposicion.cs" />
+    <Compile Include="Objetos\Empleado.cs" />
+    <Compile Include="Objetos\Entrada.cs" />
+    <Compile Include="Objetos\Exposicion.cs" />
+    <Compile Include="Objetos\GestorRegistrarVentaEntrada.cs" />
+    <Compile Include="Objetos\Obra.cs" />
+    <Compile Include="Objetos\Reserva.cs" />
+    <Compile Include="Objetos\Sede.cs" />
+    <Compile Include="Objetos\Sesion.cs" />
+    <Compile Include="Objetos\Tarifa.cs" />
+    <Compile Include="Objetos\TipoEntrada.cs" />
+    <Compile Include="Objetos\TipoVisita.cs" />
+    <Compile Include="Objetos\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\Frm_Login.resx">
+      <DependentUpon>Frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Frm_pantallaRegistrarVenta.resx">
+      <DependentUpon>Frm_pantallaRegistrarVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\ImpresorEntradas.resx">
+      <DependentUpon>ImpresorEntradas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\PantallaEntrada.resx">
+      <DependentUpon>PantallaEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\PantallaSala.resx">
+      <DependentUpon>PantallaSala.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_principal.resx">
+      <DependentUpon>Frm_principal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +170,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -72,9 +181,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TrabajoPracticoDSI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Museo Superior de Bellas Artes Evita %28ex Palacio Ferreyra%29 Córdoba - Argentina_.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Museo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

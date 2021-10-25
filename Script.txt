@@ -1,0 +1,83 @@
+
+use Museo;
+
+--ident
+INSERT INTO Tipo_Entrada VALUES ('General',0.05);
+INSERT INTO Tipo_Entrada VALUES ('No General',0.07);
+INSERT INTO Tipo_Entrada VALUES ('Menores', 0.04);
+INSERT INTO Tipo_Entrada VALUES ('Estudiantes', 0.08);
+INSERT INTO Tipo_Entrada VALUES ('Jubilados', 0.04);
+
+--ident
+INSERT INTO Tipo_Visita VALUES ('Completa',0.05);
+INSERT INTO Tipo_Visita VALUES ('Por exposición',0.03);
+
+--ident
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (100, 10, 'Sede Provincial de Bellas Artes "Emilio Caraffa"', 100);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (120, 15, 'Sede Superior de Bellas Artes "Evita" | P.Ferreyra', 150);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (140, 10, 'Sede PROVINCIAL DE FOTOGRAFÍA PALACIO DIONISI', 200);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (160, 15, 'Sede Histórico Provincial Marqués de Sobremonte', 300);
+INSERT INTO Sede(cantidadMaxVisitantes,cantidadMaxPorGuia,nombre,montoBase) VALUES (150, 10, 'Sede Provincial de Ciencias Naturales, UI', 150);
+
+--ident
+INSERT INTO Cargo(nombre) VALUES ('Guía');
+
+INSERT INTO Empleado VALUES (38000000, 'Juan', 'Peez', 1, 1);
+INSERT INTO Empleado VALUES (40000000, 'Roberto', 'Gonzales', 1, 1);
+INSERT INTO Empleado VALUES (35000000, 'Miguel', 'Sanchez', 1, 1);
+INSERT INTO Empleado VALUES (41000000, 'Malena', 'Burgos', 1, 1);
+INSERT INTO Empleado VALUES (30000000, 'Agustin', 'Viale', 1, 1);
+
+INSERT INTO Usuario VALUES ('juanperez','1111',38000000);
+INSERT INTO Usuario VALUES ('robertogon','1111',40000000);
+INSERT INTO Usuario VALUES ('jmiguelsan','1111',35000000);
+INSERT INTO Usuario VALUES ('malenaburgos','1111',41000000);
+INSERT INTO Usuario VALUES ('1','1',30000000);
+
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,1,1,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 108,50,1,2,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 112,50,2,1,1);
+INSERT INTO Tarifa(fechaInicioVigencia,monto, montoAdicionalGuia, idTipoEntrada,idTipoVisita,idSede) VALUES (GETDATE(), 110,50,2,2,1);
+
+--ident id obra
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(3,1)
+INSERT INTO Obra VALUES(5,2)
+INSERT INTO Obra VALUES(4,1)
+INSERT INTO Obra VALUES(4,1)
+
+--ident id tipo || dos tipos: permanentes y temporales.
+INSERT INTO Tipo_Exposicion VALUES ('Permanente');
+INSERT INTO Tipo_Exposicion VALUES ('Temporal');
+
+select *
+from Tipo_Exposicion
+
+--correspondiente. Estas exposiciones pueden estar orientadas a uno o más sectores del público (niños, estudiantes de arte, público general, etc.),
+INSERT INTO Publico_Destino VALUES(1, 'Niños')
+INSERT INTO Publico_Destino VALUES(1, 'Estudiantes de arte')
+INSERT INTO Publico_Destino VALUES(1, 'Público general')
+INSERT INTO Publico_Destino VALUES(1, 'Jubilados')
+
+--dos tipos de reservas. 1) visita general, 2) una o más exposiciones
+INSERT INTO Reserva (numero, fechaCreacion, horaInicioReal,horaFinReal, fechaHoraReserva, cantidadAlumnosConfirmados, idSede, duracionEstimada) 
+VALUES (544, convert(datetime, '20/06/2021', 103), convert(time, '13:00',108), convert(time, '16:00', 108), convert(datetime, '24/06/2021',103),40,1,3);
+
+
+INSERT INTO Exposicion (id, fechaInicio, fechaFin, idTipo, idPublicoDestino, idSede) VALUES (1, convert(datetime, '28/06/2021', 103), convert(datetime, '02/07/2021', 103),2, 'Niños', 1)
+INSERT INTO Exposicion (id, fechaInicio, fechaFin, idTipo, idPublicoDestino, idSede) VALUES (2, convert(datetime, '28/06/2021', 103), convert(datetime, '02/10/2021', 103),1,'Estudiantes de arte', 1)
+INSERT INTO Exposicion (id, fechaInicio, fechaFin, idTipo, idPublicoDestino, idSede) VALUES (3, convert(datetime, '15/11/2020',103), convert(datetime, '24/04/2021',103), 1, 'Público general', 1)
+
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 1| Sala 5', 1,1)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 1| Sala 5', 2,1)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 1| Sala 5', 3,1)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 2| Sala 2', 4,2)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 2| Sala 2', 6,2)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 2| Sala 2', 8,2)
+INSERT INTO Detalle_Exposicion (lugarAsignado, idObra, idExposicion) VALUES ('Planta 1| Sala 1', 10,3)
