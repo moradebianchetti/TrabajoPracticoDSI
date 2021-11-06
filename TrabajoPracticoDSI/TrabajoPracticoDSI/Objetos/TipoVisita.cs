@@ -18,6 +18,7 @@ namespace TrabajoPracticoDSI.Objetos
         {
             string sql = $"SELECT * FROM Tipo_Visita WHERE id = {idTipoVisita}";
             DataTable tipoVisita = _DB.EjecutarSelect(sql);
+            this.id = int.Parse(tipoVisita.Rows[0]["id"].ToString());
             this.nombre = tipoVisita.Rows[0]["nombre"].ToString();
             this.porcentaje = float.Parse(tipoVisita.Rows[0]["porcentaje"].ToString());
         }
