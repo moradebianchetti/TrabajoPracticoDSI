@@ -14,12 +14,17 @@ namespace TrabajoPracticoDSI.Formularios
     public partial class Frm_pantallaRegistrarVenta : Form
     {
         //Atributos
-        public List<Tarifa> listaTarifas = new List<Tarifa>();
-        GestorRegistrarVentaEntrada gestor = new GestorRegistrarVentaEntrada();
+        public GestorRegistrarVentaEntrada gestor { get; set; }
+
+        public List<object[]> listaTarifas = new List<object[]>();
+        
         public Tarifa tarifaSeleccionada= new Tarifa();
+
 
         public Frm_pantallaRegistrarVenta()
         {
+            gestor = new GestorRegistrarVentaEntrada();
+
             InitializeComponent();
         }
 
@@ -34,34 +39,45 @@ namespace TrabajoPracticoDSI.Formularios
             this.ShowDialog();
         }
         
-        public void solicitaSeleccionTarifa(List<Tarifa> tarifas)
+        
+
+        private void mostrarTarifas(List<object[]> tarifas)
+        {
+            grid_Tarifas.Rows.Clear();
+            int cont = 0;
+            foreach (var item in tarifas)
+            {
+                
+                    grid_Tarifas.Rows.Add();
+                    grid_Tarifas.Rows[cont].Cells[0].Value = item[0];
+                    grid_Tarifas.Rows[cont].Cells[1].Value = item[1];
+                    grid_Tarifas.Rows[cont].Cells[2].Value = item[2];
+                    grid_Tarifas.Rows[cont].Cells[3].Value = item[3];
+                    grid_Tarifas.Rows[cont].Cells[5].Value = cont;
+                    cont++;
+                
+            }
+
+
+        }
+        public void solicitaSeleccionTarifa(List<object[]> tarifas)
         {
             listaTarifas = tarifas;
             mostrarTarifas(tarifas);
         }
-
-        private void mostrarTarifas(List<Tarifa> tarifas)
-        {
-            grid_Tarifas.Rows.Clear();
-            for (int i = 0; i < tarifas.Count; i++)
-            {
-                
-                grid_Tarifas.Rows.Add();
-                grid_Tarifas.Rows[i].Cells[0].Value = tarifas[i].tipoVisita.nombre;
-                grid_Tarifas.Rows[i].Cells[1].Value = tarifas[i].tipoEntrada.nombre;
-                grid_Tarifas.Rows[i].Cells[2].Value = tarifas[i].monto;
-                grid_Tarifas.Rows[i].Cells[3].Value = tarifas[i].montoAdicionalGuia;
-                grid_Tarifas.Rows[i].Cells[5].Value = i;
-            }
-        }
-
         private void tomarSeleccionTarifa(object sender, EventArgs e)
         {
             int indiceSeleccionado = int.Parse(grid_Tarifas.CurrentRow.Cells["Indice"].Value.ToString());
-            this.tarifaSeleccionada = listaTarifas[indiceSeleccionado];
+            Object[] aux = listaTarifas[indiceSeleccionado];
+            this.tarifaSeleccionada = (Tarifa)aux[4];
 
             gestor.tomarSeleccionTarifa(this.tarifaSeleccionada);
 
+        }
+
+
+        public void solicitarSeleccionCantidadEntradas()
+        {
             label6.Text = tarifaSeleccionada.tipoVisita.nombre.ToString();
             label6.Visible = true;
             label5.Text = tarifaSeleccionada.tipoEntrada.nombre.ToString();
@@ -71,22 +87,15 @@ namespace TrabajoPracticoDSI.Formularios
             Btn_2.Visible = true;
             grid_Tarifas.Enabled = false;
             msk_Entradas.Enabled = true;
+          
         }
 
-        public void solicitarSeleccionCantidadEntradas()
-        {
-            mostrarSeleccionCantidadEntradas();
-        }
-
-        private void mostrarSeleccionCantidadEntradas()
-        {
-
-
-        }
+       
         private void tomarSeleccionCantidadEntradas(object sender, EventArgs e)
         {
-            if(msk_Entradas.Text != "")
+            if (msk_Entradas.Text != "")
             {
+                Btn_2.Visible = false;
                 gestor.tomarSeleccionCantidadEntradas(int.Parse(msk_Entradas.Text));
             }else
             {
@@ -126,10 +135,7 @@ namespace TrabajoPracticoDSI.Formularios
         private void cancelarVenta(object sender, EventArgs e)
         {
             this.Close();
-
-            //Frm_pantallaRegistrarVenta ss = new Frm_pantallaRegistrarVenta();
-            //ss.Show();
-            //ss.InitializeComponent();
+            
 
         }
     }

@@ -10,45 +10,83 @@ using TrabajoPracticoDSI.Formularios;
 
 namespace TrabajoPracticoDSI.Objetos
 {
-    class GestorRegistrarVentaEntrada
+    public class GestorRegistrarVentaEntrada : iSujeto
     {
         //Atributos
+        public int cantidadMaximaVisitantes { get; set; }
+        public int cantidadVisitantes { get; set; }
         public DateTime fechaHoraActual { get; set; }
         public Sede sedeActual { get; set; }
-        public Tarifa tarifaSeleccionada { get; set; }
-        List<Tarifa> tarifaVigente = new List<Tarifa>();
-        public bool ventaConfirmada { get; set; }
-        public int visitantesSede { get; set; }
-        public Sesion sesion { get; set; }
-
         public string sesionUsuarioLogueado { get; set; }
+        public Tarifa tarifaSeleccionada { get; set; }
+        List<object[]> tarifaVigente = new List<object[]>();
+        public bool ventaConfirmada { get; set; }
+        public ImpresorEntradas impresor { get; set; }
+        public Sesion sesion { get; set; }
+        public List<Empleado> empleados { get; set; }
+        public Usuario usuarioActual { get; set; }
+        public List<Entrada> listaEntradas { get; set; }
+
+        //Dos listas?
+        private List<iObservadorActualizarPantalla> pantallas { get; set; }
+
+        private List<iObservadorActualizarPantalla> observers = new List<iObservadorActualizarPantalla>();
+
+        public GestorRegistrarVentaEntrada()
+        {
+            Usuario usuarioActual = new Usuario();
+            Sesion sesion = new Sesion();
+            ImpresorEntradas impresor = new ImpresorEntradas();
+   
+            string sql = "SELECT * FROM Empleado";
+            DataTable empleadosTable = _DB.EjecutarSelect(sql);
+            empleados = new List<Empleado>();
+
+
+            for (int i = 0; i < empleadosTable.Rows.Count; i++)
+            {
+                Empleado empleado = new Empleado(empleadosTable.Rows[i]);
+                empleados.Add(empleado);
+            }
+            listaEntradas = new List<Entrada>();
+
+            //TODO: ver pantallas por que seria un atributo de la clase gestor
+            pantallas = new List<iObservadorActualizarPantalla>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                PantallaSala pantallaSala = new PantallaSala();
+                pantallas.Add(pantallaSala);
+            }
+
+            //TODO: ver pantallaEntrada por que seria un atributo de la clase gestor
+            PantallaEntrada pantallaEntrada = new PantallaEntrada();
+            pantallas.Add(pantallaEntrada);
+
+        }
 
         Conexion_DB _DB = new Conexion_DB();
-        
+
         public void tomarSeleccionOpcionRegistrarVenta(Sesion sesion)
         {
             this.buscarSede(sesion);
         }
-        
+
         int duracionExposiciones = 0;
 
         public void buscarSede(Sesion sesion)
         {
-            Usuario usuarioActual = new Usuario();
+
             usuarioActual.dni_empleado = this.buscarUsuarioLogueado(sesion);
 
-            string sql = "SELECT * FROM Empleado";
-            DataTable empleados = _DB.EjecutarSelect(sql);
-
-            for (int i = 0; i < empleados.Rows.Count; i++)
+            foreach (Empleado item in empleados)
             {
-                Empleado empleado = new Empleado();
-                empleado.DNI = int.Parse(empleados.Rows[i]["DNI"].ToString());
-                int idSede = int.Parse(empleados.Rows[i]["idSede"].ToString());
-                this.sedeActual = empleado.esTuUsuario(usuarioActual, idSede);
-
-                if (this.sedeActual.id != 0)
+                if (item.esTuUsuario(usuarioActual))
+                {
+                    this.sedeActual = item.obtenerSede();
                     break;
+                }
+
             }
 
             this.tarifaVigente = buscarTarifa();
@@ -56,7 +94,7 @@ namespace TrabajoPracticoDSI.Objetos
             Frm_principal.pantalla.solicitaSeleccionTarifa(this.tarifaVigente);
         }
 
-        public List<Tarifa> buscarTarifa()
+        public List<object[]> buscarTarifa()
         {
             return this.sedeActual.obtenerTarifa();
         }
@@ -82,22 +120,21 @@ namespace TrabajoPracticoDSI.Objetos
         {
             sedeActual.cantidadMaxVisitantes = buscarCapacidadMaxima();
             int visitantesEnSede = buscarCantidadVisitantesEnSede();
-            this.visitantesSede = visitantesEnSede;
-            validarCantidadVisitantesActuales(this.visitantesSede, cantidadIngresada);
+            this.cantidadVisitantes = visitantesEnSede;
+            validarCantidadVisitantesActuales(this.cantidadVisitantes, cantidadIngresada);
         }
         public int buscarCapacidadMaxima()
         {
-            return this.sedeActual.cantidadMaxVisitantes; 
+            return this.sedeActual.cantidadMaxVisitantes;
         }
 
         public int buscarCantidadVisitantesEnSede()
         {
-            return this.sedeActual.obtenerCantidadReservasYEntradas(duracionExposiciones);
+            return this.sedeActual.obtenerCantidadVisitantesEnSede(duracionExposiciones);
         }
 
-        private void validarCantidadVisitantesActuales( int visitantesEnSede, int cantidadIngresada)
+        private void validarCantidadVisitantesActuales(int visitantesEnSede, int cantidadIngresada)
         {
-              
 
             if (this.sedeActual.cantidadMaxVisitantes < (cantidadIngresada + visitantesEnSede))
             {
@@ -106,72 +143,80 @@ namespace TrabajoPracticoDSI.Objetos
             }
             else
             {
-                this.visitantesSede += cantidadIngresada;
-                //personasEnMuseo = cantidadIngresada + visitantesEnSede; 
+                this.cantidadVisitantes += cantidadIngresada;
                 Frm_principal.pantalla.mostrarEntradasAComprar();
             }
         }
         public void tomarSeleccionConfirmarCompra(int cantidadEntrada, int montoTotal)
         {
+            foreach (iObservadorActualizarPantalla pantalla in pantallas)
+            {
+                Suscribir(pantalla);
+            }
             this.buscarUltimoNroEntrada(cantidadEntrada, montoTotal);
         }
         private void buscarUltimoNroEntrada(int cantidadEntrada, int montoTotal)
         {
-            
-            obtenerFechaHoraActual(cantidadEntrada, montoTotal);
+            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
+            obtenerFechaHoraActual(cantidadEntrada, montoTotal, mayorNumero);
         }
-        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal)
+        private void obtenerFechaHoraActual(int cantidadEntrada, int montoTotal, int mayorNumero)
         {
             this.fechaHoraActual = DateTime.Now;
-            RegistrarEntrada(cantidadEntrada, montoTotal);
+            RegistrarEntrada(cantidadEntrada, montoTotal, mayorNumero);
         }
-        private void RegistrarEntrada(int cantidadEntrada, int montoTotal)
+        private void RegistrarEntrada(int cantidadEntrada, int montoTotal, int mayorNumero)
         {
-            List<Entrada> listaEntradas = new List<Entrada>();
-            int mayorNumero = sedeActual.obtenerUltimoNroEntrada();
+
             for (int i = 0; i < cantidadEntrada; i++)
             {
                 int numeroEntrada = mayorNumero + i + 1;
-                Entrada entrada = new Entrada();
-
-                entrada.newEntrada(this.fechaHoraActual, sedeActual, this.tarifaSeleccionada, numeroEntrada);
+                Entrada entrada = new Entrada(this.fechaHoraActual, sedeActual, this.tarifaSeleccionada, numeroEntrada);
 
                 listaEntradas.Add(entrada);
 
             }
             MessageBox.Show("Se confirmo su compra con éxito");
             imprimirEntradas(listaEntradas);
+            actualizarVisitantesPantalla();
+            finCU();
         }
         private void imprimirEntradas(List<Entrada> listaEntradas)
         {
             foreach (Entrada item in listaEntradas)
             {
-                ImpresorEntradas impresor = new ImpresorEntradas();
+
                 impresor.imprimirEntradas(item);
 
             }
-            actualizarCantidadVisitantes();
         }
-        private void actualizarCantidadVisitantes()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                PantallaSala pantallaSala = new PantallaSala();
-                pantallaSala.actualizarCantidadVisitantes(this.visitantesSede, sedeActual);
 
-            }
-            
-            actualizarVisitantesPantalla();
-        }
         private void actualizarVisitantesPantalla()
         {
-            PantallaEntrada pantallaEntrada = new PantallaEntrada();
-            pantallaEntrada.actualizarCantidadVisitantes(this.visitantesSede, sedeActual);
-            finCU();
+            Notificar();
         }
+
+        public void Notificar()
+        {
+            //TODO: inconsistencia, loop cuando en diagrama esta solo para las pantallas de las salas
+            foreach (iObservadorActualizarPantalla pantalla in observers)
+            {
+                pantalla.actualizarCantidadVisitantes(this.cantidadVisitantes, sedeActual.cantidadMaxVisitantes);
+            }
+        }
+
+        public void Suscribir(iObservadorActualizarPantalla observer)
+        {
+            this.observers.Add(observer);
+        }
+
+        public void Quitar(iObservadorActualizarPantalla observer)
+        {
+            this.observers.Remove(observer);
+        }
+
         private void finCU()
         {
-           
             Frm_principal.pantalla.Close();
             Application.Restart();
         }
