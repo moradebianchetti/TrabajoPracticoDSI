@@ -13,27 +13,32 @@ namespace TrabajoPracticoDSI.Formularios
 {
     public partial class PantallaSala : Form, iObservadorActualizarPantalla
     {
+        public int cantidadVisitantes { get; set; }
         public int capacidadMaximaSede { get; set; }
-        public int nroVisitantesActuales { get; set; }
 
         public PantallaSala()
         {
             InitializeComponent();
         }
-        //public void actualizarCantidadVisitantes(int visitantesActuales, Sede sedeActual)
+        public void actualizarCantidadVisitantes(int cantidadVisitantes, int cantidadMaximaVisitantes)
+        {
+            this.capacidadMaximaSede = cantidadMaximaVisitantes;
+            this.setCantidadVisitantes(cantidadVisitantes);
+            //this.cantidadVisitantes = visitantes;
+            //txt_visitantes.Text = visitantes.ToString();
+            //this.ShowDialog();
+        }
+        //public void setCantidadMaximaVisitantes(int visitantes)
         //{
-        //    this.capacidadMaximaSede = sedeActual.cantidadMaxVisitantes;
-        //    this.nroVisitantesActuales = visitantesActuales;
-        //    txt_visitantes.Text = visitantesActuales.ToString();
+        //    this.capacidadMaximaSede = cantidadMaxVisitantes;
+        //    this.cantidadVisitantes = visitantes;
+        //    txt_visitantes.Text = visitantes.ToString();
         //    this.ShowDialog();
         //}
-
-        public void actualizarCantidadVisitantes(int visitantes, int cantidadMaxVisitantes)
+        public void setCantidadVisitantes(int cantidadVisitantes)
         {
-            this.capacidadMaximaSede = cantidadMaxVisitantes;
-            this.nroVisitantesActuales = visitantes;
-            txt_visitantes.Text = visitantes.ToString();
-            this.ShowDialog();
+            this.cantidadVisitantes = cantidadVisitantes;
+            txt_visitantes.Text = cantidadVisitantes.ToString();
+
         }
     }
-}

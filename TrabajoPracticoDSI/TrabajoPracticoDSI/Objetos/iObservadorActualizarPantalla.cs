@@ -8,6 +8,6 @@ namespace TrabajoPracticoDSI.Objetos
 {
     public interface iObservadorActualizarPantalla
     {
-        void actualizarCantidadVisitantes(int visitantes, int cantidadMaxima);
+        void actualizarCantidadVisitantes(int cantidadVisitantes, int cantidadMaximaVisitantes);
     }
 }

@@ -23,9 +23,12 @@ namespace TrabajoPracticoDSI.Objetos
         public Entrada()
         {
         }
-
         public Entrada(DateTime fechaHoraActual, Sede sedeActual, Tarifa tarifa, int mayorNumero)
         {
+            //TODO: ver si todas entradas es un atributo 
+            string sqlEntradas = $"SELECT * FROM Entrada";
+            DataTable todasEntradas = _DB.EjecutarSelect(sqlEntradas);
+
             string[] hoy = fechaHoraActual.ToString().Split(' ');
             this.sede = sedeActual;
             this.tarifa = tarifa;
@@ -43,7 +46,6 @@ namespace TrabajoPracticoDSI.Objetos
             _DB.Insertar(sql, true);
 
         }
-
         public List<Entrada> BuscarEsFechaDelDia(DataTable datosEntrada, List<Entrada> entradas)
         {
             for (int i = 0; i < datosEntrada.Rows.Count; i++)
@@ -70,8 +72,6 @@ namespace TrabajoPracticoDSI.Objetos
         {
             int nro = 0;
             int mayorNumero = 0;
-            string sql = $"SELECT * FROM Entrada";
-            todasEntradas = _DB.EjecutarSelect(sql);
 
             for (int i = 0; i < todasEntradas.Rows.Count; i++)
             {
@@ -83,25 +83,6 @@ namespace TrabajoPracticoDSI.Objetos
             }
             return mayorNumero;
         }
-        //public void newEntrada(DateTime fechaHoraActual, Sede sedeActual, Tarifa tarifa, int mayorNumero)
-        //{
-        //    string[] hoy = fechaHoraActual.ToString().Split(' ');
-        //    this.sede = sedeActual;
-        //    this.tarifa = tarifa;
-        //    this.fechaVenta = hoy[0];
-        //    this.horaVenta = hoy[1];
-        //    this.monto = tarifa.monto;
-        //    this.numero = mayorNumero;
-
-        //    string sql = @"INSERT INTO Entrada (fechaVenta, horaVenta, monto, numero, idSede, idTipoEntrada, " +
-        //                        @"idTipoVisita, fechaInicioVigencia) VALUES(CONVERT(date, '" + this.fechaVenta+ "' ,103)" +
-        //                    @", CONVERT(time, '" + horaVenta + "', 103), " + tarifa.monto.ToString() + ", " + mayorNumero.ToString() +
-        //                    @", " + sede.id.ToString() + ","+ tarifa.tipoEntrada.id + ", " + tarifa.tipoVisita.id +
-        //                    @", CONVERT(datetime, '" + tarifa.fechaInicioVigencia + "',103) )";
-            
-        //    _DB.Insertar(sql, true);
-          
-        //}
 
     }
 }

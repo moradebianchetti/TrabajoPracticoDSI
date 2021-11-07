@@ -13,16 +13,18 @@ namespace TrabajoPracticoDSI.Objetos
     public class GestorRegistrarVentaEntrada : iSujeto
     {
         //Atributos
+        public int cantidadMaximaVisitantes { get; set; }
+        public int cantidadVisitantes { get; set; }
         public DateTime fechaHoraActual { get; set; }
         public Sede sedeActual { get; set; }
+        public string sesionUsuarioLogueado { get; set; }
         public Tarifa tarifaSeleccionada { get; set; }
         List<object[]> tarifaVigente = new List<object[]>();
         public bool ventaConfirmada { get; set; }
-        public int visitantesSede { get; set; }
+        public ImpresorEntradas impresor { get; set; }
         public Sesion sesion { get; set; }
-        public List<Empleado> list_empleados { get; set; }
+        public List<Empleado> empleados { get; set; }
         public Usuario usuarioActual { get; set; }
-        public string sesionUsuarioLogueado { get; set; }
         public List<Entrada> listaEntradas { get; set; }
 
         //Dos listas?
@@ -32,30 +34,32 @@ namespace TrabajoPracticoDSI.Objetos
 
         public GestorRegistrarVentaEntrada()
         {
-            usuarioActual = new Usuario();
-            sesion = new Sesion();
-
+            Usuario usuarioActual = new Usuario();
+            Sesion sesion = new Sesion();
+            ImpresorEntradas impresor = new ImpresorEntradas();
+   
             string sql = "SELECT * FROM Empleado";
-            DataTable empleados = _DB.EjecutarSelect(sql);
-            list_empleados = new List<Empleado>();
+            DataTable empleadosTable = _DB.EjecutarSelect(sql);
+            empleados = new List<Empleado>();
 
 
-            for (int i = 0; i < empleados.Rows.Count; i++)
+            for (int i = 0; i < empleadosTable.Rows.Count; i++)
             {
-                Empleado empleado = new Empleado(empleados.Rows[i]);
-                list_empleados.Add(empleado);
+                Empleado empleado = new Empleado(empleadosTable.Rows[i]);
+                empleados.Add(empleado);
             }
             listaEntradas = new List<Entrada>();
 
-            
+            //TODO: ver pantallas por que seria un atributo de la clase gestor
             pantallas = new List<iObservadorActualizarPantalla>();
 
             for (int i = 0; i < 3; i++)
             {
-                PantallaSala pantalla = new PantallaSala();
-                pantallas.Add(pantalla);
+                PantallaSala pantallaSala = new PantallaSala();
+                pantallas.Add(pantallaSala);
             }
 
+            //TODO: ver pantallaEntrada por que seria un atributo de la clase gestor
             PantallaEntrada pantallaEntrada = new PantallaEntrada();
             pantallas.Add(pantallaEntrada);
 
@@ -75,7 +79,7 @@ namespace TrabajoPracticoDSI.Objetos
 
             usuarioActual.dni_empleado = this.buscarUsuarioLogueado(sesion);
 
-            foreach (Empleado item in list_empleados)
+            foreach (Empleado item in empleados)
             {
                 if (item.esTuUsuario(usuarioActual))
                 {
@@ -116,8 +120,8 @@ namespace TrabajoPracticoDSI.Objetos
         {
             sedeActual.cantidadMaxVisitantes = buscarCapacidadMaxima();
             int visitantesEnSede = buscarCantidadVisitantesEnSede();
-            this.visitantesSede = visitantesEnSede;
-            validarCantidadVisitantesActuales(this.visitantesSede, cantidadIngresada);
+            this.cantidadVisitantes = visitantesEnSede;
+            validarCantidadVisitantesActuales(this.cantidadVisitantes, cantidadIngresada);
         }
         public int buscarCapacidadMaxima()
         {
@@ -139,7 +143,7 @@ namespace TrabajoPracticoDSI.Objetos
             }
             else
             {
-                this.visitantesSede += cantidadIngresada;
+                this.cantidadVisitantes += cantidadIngresada;
                 Frm_principal.pantalla.mostrarEntradasAComprar();
             }
         }
@@ -181,7 +185,7 @@ namespace TrabajoPracticoDSI.Objetos
         {
             foreach (Entrada item in listaEntradas)
             {
-                ImpresorEntradas impresor = new ImpresorEntradas();
+
                 impresor.imprimirEntradas(item);
 
             }
@@ -194,9 +198,10 @@ namespace TrabajoPracticoDSI.Objetos
 
         public void Notificar()
         {
+            //TODO: inconsistencia, loop cuando en diagrama esta solo para las pantallas de las salas
             foreach (iObservadorActualizarPantalla pantalla in observers)
             {
-                pantalla.actualizarCantidadVisitantes(this.visitantesSede, sedeActual.cantidadMaxVisitantes);
+                pantalla.actualizarCantidadVisitantes(this.cantidadVisitantes, sedeActual.cantidadMaxVisitantes);
             }
         }
 
