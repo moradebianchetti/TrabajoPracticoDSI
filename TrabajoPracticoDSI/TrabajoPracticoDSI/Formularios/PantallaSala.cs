@@ -23,6 +23,7 @@ namespace TrabajoPracticoDSI.Formularios
         public void actualizarCantidadVisitantes(int cantidadVisitantes, int cantidadMaximaVisitantes)
         {
             this.capacidadMaximaSede = cantidadMaximaVisitantes;
+            txt_MaxCant.Text = cantidadMaximaVisitantes.ToString();
             this.setCantidadVisitantes(cantidadVisitantes);
             //this.cantidadVisitantes = visitantes;
             //txt_visitantes.Text = visitantes.ToString();
@@ -42,3 +43,4 @@ namespace TrabajoPracticoDSI.Formularios
 
         }
     }
+}

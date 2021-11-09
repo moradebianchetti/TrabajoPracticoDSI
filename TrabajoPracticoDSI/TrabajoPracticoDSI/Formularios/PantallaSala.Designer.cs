@@ -33,6 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txt_MaxCant = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_visitantes
@@ -80,6 +83,28 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Visitantes en el museo";
             // 
+            // txt_MaxCant
+            // 
+            this.txt_MaxCant.BackColor = System.Drawing.Color.White;
+            this.txt_MaxCant.Font = new System.Drawing.Font("Microsoft New Tai Lue", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MaxCant.Location = new System.Drawing.Point(263, 244);
+            this.txt_MaxCant.Name = "txt_MaxCant";
+            this.txt_MaxCant.Size = new System.Drawing.Size(178, 31);
+            this.txt_MaxCant.TabIndex = 8;
+            this.txt_MaxCant.Text = "txt_MaxCant";
+            this.txt_MaxCant.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Enabled = false;
+            this.pictureBox1.Location = new System.Drawing.Point(64, 62);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(102, 93);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
             // PantallaSala
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -87,12 +112,15 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(723, 434);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.txt_MaxCant);
             this.Controls.Add(this.txt_visitantes);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "PantallaSala";
             this.Text = "Pantalla Sala";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,5 +132,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txt_MaxCant;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

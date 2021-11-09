@@ -135,7 +135,6 @@ namespace TrabajoPracticoDSI.Objetos
 
         private int buscarReservasDelDia(int duracionExposicion)
         {
-            //Se aplica el patron experto en información y bajo acoplamiento ...
             List<Reserva> Reservas = new List<Reserva>();
             int cantidadAlumnosConfirmada = 0;
             string sql1 = $"SELECT * FROM Reserva WHERE idSede = {this.id}";

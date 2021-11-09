@@ -52,7 +52,7 @@
             // btn_ingresar
             // 
             this.btn_ingresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btn_ingresar.Location = new System.Drawing.Point(321, 88);
+            this.btn_ingresar.Location = new System.Drawing.Point(328, 92);
             this.btn_ingresar.Name = "btn_ingresar";
             this.btn_ingresar.Size = new System.Drawing.Size(75, 25);
             this.btn_ingresar.TabIndex = 9;
@@ -64,25 +64,25 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label2.Location = new System.Drawing.Point(109, 92);
+            this.label2.Location = new System.Drawing.Point(109, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 17);
+            this.label2.Size = new System.Drawing.Size(149, 17);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Contraseña";
+            this.label2.Text = "Ingrese su contraseña";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(133, 67);
+            this.label1.Location = new System.Drawing.Point(133, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.Size = new System.Drawing.Size(125, 17);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Usuario";
+            this.label1.Text = "Ingrese su usuario";
             // 
             // txt_password
             // 
-            this.txt_password.Location = new System.Drawing.Point(196, 91);
+            this.txt_password.Location = new System.Drawing.Point(264, 69);
             this.txt_password.Name = "txt_password";
             this.txt_password.Size = new System.Drawing.Size(119, 20);
             this.txt_password.TabIndex = 6;
@@ -90,7 +90,10 @@
             // 
             // txt_usuario
             // 
-            this.txt_usuario.Location = new System.Drawing.Point(196, 64);
+            this.txt_usuario.AccessibleDescription = "Ingrese su usuario ";
+            this.txt_usuario.AccessibleName = "https://www.instagram.com/accounts/remove/request/temporary/";
+            this.txt_usuario.AllowDrop = true;
+            this.txt_usuario.Location = new System.Drawing.Point(264, 44);
             this.txt_usuario.Name = "txt_usuario";
             this.txt_usuario.Size = new System.Drawing.Size(119, 20);
             this.txt_usuario.TabIndex = 5;

@@ -135,7 +135,6 @@ namespace TrabajoPracticoDSI.Formularios
         private void cancelarVenta(object sender, EventArgs e)
         {
             this.Close();
-            
 
         }
     }

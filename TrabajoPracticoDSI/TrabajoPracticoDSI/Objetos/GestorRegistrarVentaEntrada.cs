@@ -24,7 +24,7 @@ namespace TrabajoPracticoDSI.Objetos
         public ImpresorEntradas impresor { get; set; }
         public Sesion sesion { get; set; }
         public List<Empleado> empleados { get; set; }
-        public Usuario usuarioActual { get; set; }
+        Usuario usuarioActual = new Usuario();
         public List<Entrada> listaEntradas { get; set; }
 
         //Dos listas?
@@ -64,7 +64,6 @@ namespace TrabajoPracticoDSI.Objetos
             pantallas.Add(pantallaEntrada);
 
         }
-
         Conexion_DB _DB = new Conexion_DB();
 
         public void tomarSeleccionOpcionRegistrarVenta(Sesion sesion)
@@ -76,7 +75,6 @@ namespace TrabajoPracticoDSI.Objetos
 
         public void buscarSede(Sesion sesion)
         {
-
             usuarioActual.dni_empleado = this.buscarUsuarioLogueado(sesion);
 
             foreach (Empleado item in empleados)
@@ -208,6 +206,9 @@ namespace TrabajoPracticoDSI.Objetos
         public void Suscribir(iObservadorActualizarPantalla observer)
         {
             this.observers.Add(observer);
+            //PantallaEntrada pantallaEntrada = new PantallaEntrada();
+            //pantallaEntrada.actualizarCantidadVisitantes(this.visitantesSede, sedeActual.cantidadMaxVisitantes);
+            //finCU();
         }
 
         public void Quitar(iObservadorActualizarPantalla observer)

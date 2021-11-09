@@ -20,27 +20,24 @@ namespace TrabajoPracticoDSI.Formularios
         {
             InitializeComponent();
         }
-
         public void actualizarCantidadVisitantes(int cantidadVisitantes, int cantidadMaximaVisitantes)
         {
             this.capacidadMaximaSede = cantidadMaximaVisitantes;
+            txt_MaxCant.Text = cantidadMaximaVisitantes.ToString();
             this.setCantidadVisitantes(cantidadVisitantes);
-            //this.cantidadVisitantes = visitantes;
-            //txt_visitantes.Text = visitantes.ToString();
-            //this.ShowDialog();
         }
-        //public void setCantidadMaximaVisitantes(int visitantes)
-        //{
-        //    this.capacidadMaximaSede = cantidadMaxVisitantes;
-        //    this.cantidadVisitantes = visitantes;
-        //    txt_visitantes.Text = visitantes.ToString();
-        //    this.ShowDialog();
-        //}
         public void setCantidadVisitantes(int cantidadVisitantes)
         {
             this.cantidadVisitantes = cantidadVisitantes;
             txt_visitantes.Text = cantidadVisitantes.ToString();
-            this.ShowDialog();
+           
         }
+        //public void actualizarCantidadVisitantes(int visitantesActuales, int cantidadMxVisitantes)
+        //{
+        //    this.capacidadMaximaSede = cantidadMxVisitantes;
+        //    this.nroVisitantesActuales = visitantesActuales;
+        //    txt_visitantes.Text = visitantesActuales.ToString();
+        //    this.ShowDialog();
+        //}
     }
 }
