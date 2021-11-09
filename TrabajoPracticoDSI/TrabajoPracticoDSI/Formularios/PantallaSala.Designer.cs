@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_MaxCant = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,13 +87,13 @@
             // txt_MaxCant
             // 
             this.txt_MaxCant.BackColor = System.Drawing.Color.White;
-            this.txt_MaxCant.Font = new System.Drawing.Font("Microsoft New Tai Lue", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_MaxCant.Location = new System.Drawing.Point(263, 244);
+            this.txt_MaxCant.Font = new System.Drawing.Font("Microsoft New Tai Lue", 16.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MaxCant.Location = new System.Drawing.Point(490, 239);
             this.txt_MaxCant.Name = "txt_MaxCant";
-            this.txt_MaxCant.Size = new System.Drawing.Size(178, 31);
+            this.txt_MaxCant.Size = new System.Drawing.Size(102, 31);
             this.txt_MaxCant.TabIndex = 8;
             this.txt_MaxCant.Text = "txt_MaxCant";
-            this.txt_MaxCant.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txt_MaxCant.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox1
             // 
@@ -105,6 +106,17 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Microsoft New Tai Lue", 16.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(79, 239);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(421, 31);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Cantidad máxima de visitantes permitida: ";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PantallaSala
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +124,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(723, 434);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txt_MaxCant);
             this.Controls.Add(this.txt_visitantes);
@@ -134,5 +147,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label txt_MaxCant;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
     }
 }

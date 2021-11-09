@@ -21,10 +21,10 @@ namespace TrabajoPracticoDSI.Objetos
         public Tarifa tarifaSeleccionada { get; set; }
         List<object[]> tarifaVigente = new List<object[]>();
         public bool ventaConfirmada { get; set; }
-        public ImpresorEntradas impresor { get; set; }
+        public ImpresorEntradas impreor { get; set; }
         public Sesion sesion { get; set; }
+        public Usuario usuaroActual { get; set; }
         public List<Empleado> empleados { get; set; }
-        Usuario usuarioActual = new Usuario();
         public List<Entrada> listaEntradas { get; set; }
 
         //Dos listas?
@@ -36,7 +36,7 @@ namespace TrabajoPracticoDSI.Objetos
         {
             Usuario usuarioActual = new Usuario();
             Sesion sesion = new Sesion();
-            ImpresorEntradas impresor = new ImpresorEntradas();
+            ImpresorEntradas impreor = new ImpresorEntradas();
    
             string sql = "SELECT * FROM Empleado";
             DataTable empleadosTable = _DB.EjecutarSelect(sql);
@@ -50,7 +50,6 @@ namespace TrabajoPracticoDSI.Objetos
             }
             listaEntradas = new List<Entrada>();
 
-            //TODO: ver pantallas por que seria un atributo de la clase gestor
             pantallas = new List<iObservadorActualizarPantalla>();
 
             for (int i = 0; i < 3; i++)
@@ -59,13 +58,12 @@ namespace TrabajoPracticoDSI.Objetos
                 pantallas.Add(pantallaSala);
             }
 
-            //TODO: ver pantallaEntrada por que seria un atributo de la clase gestor
             PantallaEntrada pantallaEntrada = new PantallaEntrada();
             pantallas.Add(pantallaEntrada);
 
         }
         Conexion_DB _DB = new Conexion_DB();
-
+        Usuario usuarioActual = new Usuario();
         public void tomarSeleccionOpcionRegistrarVenta(Sesion sesion)
         {
             this.buscarSede(sesion);
@@ -145,6 +143,7 @@ namespace TrabajoPracticoDSI.Objetos
                 Frm_principal.pantalla.mostrarEntradasAComprar();
             }
         }
+        ImpresorEntradas impresor = new ImpresorEntradas();
         public void tomarSeleccionConfirmarCompra(int cantidadEntrada, int montoTotal)
         {
             foreach (iObservadorActualizarPantalla pantalla in pantallas)
@@ -196,7 +195,7 @@ namespace TrabajoPracticoDSI.Objetos
 
         public void Notificar()
         {
-            //TODO: inconsistencia, loop cuando en diagrama esta solo para las pantallas de las salas
+            
             foreach (iObservadorActualizarPantalla pantalla in observers)
             {
                 pantalla.actualizarCantidadVisitantes(this.cantidadVisitantes, sedeActual.cantidadMaxVisitantes);
@@ -206,9 +205,6 @@ namespace TrabajoPracticoDSI.Objetos
         public void Suscribir(iObservadorActualizarPantalla observer)
         {
             this.observers.Add(observer);
-            //PantallaEntrada pantallaEntrada = new PantallaEntrada();
-            //pantallaEntrada.actualizarCantidadVisitantes(this.visitantesSede, sedeActual.cantidadMaxVisitantes);
-            //finCU();
         }
 
         public void Quitar(iObservadorActualizarPantalla observer)
@@ -219,7 +215,7 @@ namespace TrabajoPracticoDSI.Objetos
         private void finCU()
         {
             Frm_principal.pantalla.Close();
-            Application.Restart();
+            //Application.Restart();
         }
     }
 }
